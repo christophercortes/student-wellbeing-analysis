@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { inter, lusitana } from '@/components/fonts';
+import { inter } from '@/components/fonts';
 
 export const metadata: Metadata = {
   title: "Sentiment Analysis",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lusitana.className} antialiased`}
+        className={`${inter.className} antialiased`}
       >
         {children}
       </body>

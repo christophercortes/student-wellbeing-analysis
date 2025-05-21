@@ -15,8 +15,8 @@ export default function Page() {
           Student Sentiment Awareness
         </h1>
         <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-          "The secret is here in the present. If you pay attention to the present, you can improve
-          upon it. And, if you improve on the present, what comes later will also be better."
+          &quot;The secret is here in the present. If you pay attention to the present, you can improve
+          upon it. And, if you improve on the present, what comes later will also be better.&quot;
           <span className="Block mt-2 text-sm italic text-gray-500 dark:text-gray-400">
             - Paulo Coelho
           </span>
