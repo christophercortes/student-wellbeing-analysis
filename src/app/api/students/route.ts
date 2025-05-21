@@ -13,7 +13,7 @@ import Student from "@/models/Student";
 import { NextResponse } from "next/server";
 
 // Export the POST route
-export async function POST(request: any) 
+export async function POST(request: Request) 
 {
     // Collect the data from the request and convert to json
     const { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail } = await request.json();
