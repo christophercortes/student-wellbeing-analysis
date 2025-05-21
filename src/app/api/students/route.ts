@@ -1,3 +1,10 @@
+/*
+The purpose of this file is to allow POST
+and GET actions to be taken through an API
+call. An example of this would be like this:
+https://localhost3000/api/students
+*/
+
 // Import the db connection for the api route
 import connectMonDb from "@/config/database";
 // Import the mongoose model
