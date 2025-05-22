@@ -28,6 +28,8 @@ export async function POST(request: Request)
         // Return the success response if the student was added, 201: Student Created
         return NextResponse.json({ message: "Student Created" }, { status: 201 });
     } catch (error) {
+        // Display the error to the console
+        console.error("An Error Occured: ", error);
         // Return the faluire message, 500: Server Error
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }
@@ -47,6 +49,8 @@ export async function GET()
         // Return the students and success message, 200: students returned
         return NextResponse.json({ students }, { status: 200 });
     } catch (error) {
+        // Display the error to the console
+        console.error("An Error Occured: ", error);
         // Return the faluire message, 500: Server Error
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }

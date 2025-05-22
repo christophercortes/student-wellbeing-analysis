@@ -56,6 +56,8 @@ export async function PUT(request: Request, { params }: { params: { [key: string
             return NextResponse.json({ message: "Course Updated" }, { status: 200 });
         }
     } catch (error) {
+        // Display the error to the console
+        console.error("An Error Occured: ", error);
         // Return the error message, 500: Server Error
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }
@@ -85,6 +87,8 @@ export async function DELETE(_request: Request, { params }: { params: { [key: st
             return NextResponse.json({ message: "Course Not Found" }, { status: 404 });
         }
     } catch (error) {
+        // Display the error to the console
+        console.error("An Error Occured: ", error);
         // Return the error message, 500: Server Error
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }
@@ -114,6 +118,8 @@ export async function GET(_request: Request, { params }: { params: { [key: strin
             return NextResponse.json({ course }, { status: 200 });
         }
     } catch (error) {
+        // Display the error to the console
+        console.error("An Error Occured: ", error);
         // Return error message, 500: Server Error
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }
