@@ -23,10 +23,10 @@ import { NextResponse } from "next/server";
 
 
 // Export the PUT function
-export async function PUT(request: Request, { params }: { params: { [key: string]: string | string[] } })
+export async function PUT(request: Request, { params }: { params: Promise<{id: string}> })
 {
     // Obtain the id from the params being passed in
-    const { id } = params;
+    const { id } = await params;
     // Obtain the updated course data
     const { newCourseName: courseName, 
             newCourseCode: courseCode, 
@@ -64,10 +64,10 @@ export async function PUT(request: Request, { params }: { params: { [key: string
 }
 
 // Export the DELETE function
-export async function DELETE(_request: Request, { params }: { params: { [key: string]: string | string[] } })
+export async function DELETE(_request: Request, { params }: { params: Promise<{id: string}> })
 {
     // Obtain the id from the url
-    const { id } = params;
+    const { id } = await params;
     // Connect to the db
     await connectMonDb();
 
@@ -95,10 +95,10 @@ export async function DELETE(_request: Request, { params }: { params: { [key: st
 }
 
 // Export the GET (by id) function
-export async function GET(_request: Request, { params }: { params: { [key: string]: string | string[] } }) 
+export async function GET(_request: Request, { params }: { params: Promise<{id: string}> }) 
 {
     // Obtain the id from the url
-    const { id } = params;
+    const { id } = await params;
     // Connect to the db
     await connectMonDb();
 
