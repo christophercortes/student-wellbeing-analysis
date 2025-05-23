@@ -1,9 +1,9 @@
-const mosckStudents = [];
+import { mosckStudents } from "@/mock/students";
 
 export default function Page() {
 	return (
 		<>
-			<h2 className="text-lg font-semibold text-center">Management</h2>
+			<h2 className="mt-8 text-lg font-semibold text-center">Management</h2>
 			<table className="mt-9 w-3/5 mx-auto table-auto border-collapse text-sm">
 				<thead>
 					<tr className="border-b border-gray-200">
@@ -17,15 +17,19 @@ export default function Page() {
 					</tr>
 				</thead>
 				<tbody>
-					<tr className="border-b border-gray-200">
-						<td className="table-title py-3">pedro</td>
-						<td className="table-title py-3">2005-02-6</td>
-						<td className="table-title py-3">Math101</td>
-						<td className="table-title py-3">steve jobs</td>
-						<td className="table-title py-3">+984125257172</td>
-						<td className="table-title py-3">pedro parent</td>
-						<td className="table-title py-3">pedro@pedro.com</td>
-					</tr>
+					{mosckStudents.map((student) => {
+						return (
+							<tr key={student._id} className="border-b border-gray-200">
+								<td className="table-title py-3">{student.fullName}</td>
+								<td className="table-title py-3">{student.dateOfBirth}</td>
+								<td className="table-title py-3">{student.courseName}</td>
+								<td className="table-title py-3">{student.teacherName}</td>
+								<td className="table-title py-3">{student.contactInfo}</td>
+								<td className="table-title py-3">{student.parentName}</td>
+								<td className="table-title py-3">{student.parentEmail}</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</>
