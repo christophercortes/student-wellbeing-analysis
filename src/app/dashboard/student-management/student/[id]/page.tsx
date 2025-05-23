@@ -1,5 +1,3 @@
-import { mosckStudents } from "@/mock/students";
-
 export default async function Page({
 	params,
 }: {
@@ -15,12 +13,12 @@ export default async function Page({
 		}
 	);
 	console.log(response);
-	// if (!response.ok) {
-	// 	return <div className="text-center mt-8">Student not found</div>;
-	// }
+	if (!response.ok) {
+		return <div className="text-center mt-8">Student not found</div>;
+	}
 
-	//const { student } = await response.json();
-	const student = mosckStudents[0];
+	const { student } = await response.json();
+	//const student = mosckStudents[0];
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<h2 className="text-2xl font-semibold mb-6">Student Details</h2>
