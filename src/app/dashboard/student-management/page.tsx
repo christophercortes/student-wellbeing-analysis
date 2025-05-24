@@ -1,6 +1,22 @@
-import { mosckStudents } from "@/mock/students";
+import { StudentResponse } from "@/global/studentResponse";
 
-export default function Page() {
+export default async function Page() {
+	async function getStudents() {
+		const response = await fetch(
+			`${
+				process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+			}/api/students`,
+			{ cache: "no-store" }
+		);
+		if (!response.ok) {
+			console.error(" Error fetching students");
+			return [];
+		}
+		const data = await response.json();
+		return (data.students as StudentResponse[]) || [];
+	}
+
+	const students = await getStudents();
 	return (
 		<>
 			<h2 className="mt-8 text-lg font-semibold text-center">Management</h2>
@@ -17,11 +33,13 @@ export default function Page() {
 					</tr>
 				</thead>
 				<tbody>
-					{mosckStudents.map((student) => {
+					{students.map((student) => {
 						return (
 							<tr key={student._id} className="border-b border-gray-200">
 								<td className="table-title py-3">{student.fullName}</td>
-								<td className="table-title py-3">{student.dateOfBirth}</td>
+								<td className="table-title py-3">
+									{new Date(student.dateOfBirth).toLocaleDateString()}
+								</td>
 								<td className="table-title py-3">{student.courseName}</td>
 								<td className="table-title py-3">{student.teacherName}</td>
 								<td className="table-title py-3">{student.contactInfo}</td>
