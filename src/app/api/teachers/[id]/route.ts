@@ -9,7 +9,7 @@ export async function GET(_: NextRequest, { params }: { params: { id: string } }
   try {
     const teacher = await Teacher.findById(params.id);
     if (!teacher) {
-      return NextResponse.json({ error: 'Teacher not foun' }, { status: 404 });
+      return NextResponse.json({ error: 'Teacher not found' }, { status: 404 });
     }
     return NextResponse.json(teacher);
   } catch (error: any) {
