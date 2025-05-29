@@ -1,4 +1,5 @@
-import Image from 'next/image';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -6,7 +7,9 @@ export default function Page() {
       {/* Header Section */}
       <header className="absolute top-6 left-6 flex w-full items-center text-xl font-bold tracking-wide">
         <h1>Welcome</h1>
-        <h2 className="ml-auto mr-10">Log in</h2>
+        <Link href="/dashboard" className="ml-auto mr-10">
+          <span>Log in</span>
+        </Link>
       </header>
 
       {/* Text Content */}
@@ -15,8 +18,9 @@ export default function Page() {
           Student Sentiment Awareness
         </h1>
         <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-          &quot;The secret is here in the present. If you pay attention to the present, you can improve
-          upon it. And, if you improve on the present, what comes later will also be better.&quot;
+          &quot;The secret is here in the present. If you pay attention to the
+          present, you can improve upon it. And, if you improve on the present,
+          what comes later will also be better.&quot;
           <span className="Block mt-2 text-sm italic text-gray-500 dark:text-gray-400">
             - Paulo Coelho
           </span>
@@ -35,5 +39,5 @@ export default function Page() {
         />
       </div>
     </div>
-  )
+  );
 }
