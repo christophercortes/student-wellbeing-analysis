@@ -8,6 +8,7 @@ export interface ITeacher extends Document {
   teacherId: string;
   address?: string;
   isActive: boolean;
+  profilePicture?: string; 
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -41,6 +42,9 @@ const teacherSchema = new Schema<ITeacher>(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    profilePicture: {
+      type: String,
     },
   },
   {
