@@ -16,13 +16,13 @@ export default function EditStudentForm({
     parentName, 
     parentEmail }: 
     {id: string; 
-        fullName: any; 
-        dateOfBirth: any; 
-        courseName: any; 
-        teacherName: any; 
-        contactInfo: any; 
-        parentName: any; 
-        parentEmail: any;})
+        fullName: string; 
+        dateOfBirth: Date; 
+        courseName: string; 
+        teacherName: string; 
+        contactInfo: string; 
+        parentName: string; 
+        parentEmail: string;})
 {
     // Function to convert the date
     const convertDate = () => {
@@ -39,7 +39,7 @@ export default function EditStudentForm({
     }
 
     // Hold the stringDate
-    const convDateOfBirth: any = convertDate();
+    const convDateOfBirth: string = convertDate();
 
     // Variables to hold the new updated data
     const [newFullName, setNewFullName] = useState(fullName); // They defaut to the original values

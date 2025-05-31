@@ -6,7 +6,7 @@ export interface IEssay extends Document
 {
     student_id: Schema.Types.ObjectId; // Which student wrote the essay, so we can track the data
     course_id: Schema.Types.ObjectId; // Which course was it for, so we can make the graph on the dashboard
-    vaderData: Object; // The VADER data on the essay
+    vaderData: object; // The VADER data on the essay
 }
 
 // Schema Rules
