@@ -1,5 +1,6 @@
 import { InferenceClient } from "@huggingface/inference";
-
+import { extractTone, extractTopEmotion } from "@/lib/analyseEmotions";
+import vader from "vader-sentiment";
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 class PipelineSingleton {
 	static task = "text-classification";
@@ -13,7 +14,6 @@ class PipelineSingleton {
 		return this.instance;
 	}
 }
-const intensity = vader.SentimentIntensityAnalyzer.polarity_scores(text);
 // Listen for messages from the main thread
 self.addEventListener("message", async (event) => {
 	try {
@@ -23,11 +23,18 @@ self.addEventListener("message", async (event) => {
 		// Notify that we're ready to process
 		self.postMessage({ status: "ready" });
 		// Perform the classification
+		const intensity = vader.SentimentIntensityAnalyzer.polarity_scores(
+			event.data.text
+		);
 		const output = await classifier.textClassification({
 			model: PipelineSingleton.model,
 			inputs: event.data.text,
 		});
 
+		const vaderTone = extractTone(intensity);
+		console.log("🚀 ~ self.addEventListener ~ vaderTone:", vaderTone);
+		const topEmotion = extractTopEmotion(output);
+		console.log("🚀 ~ self.addEventListener ~ topEmotion:", topEmotion);
 		// Send the output back to the main thread
 		self.postMessage({
 			status: "complete",
