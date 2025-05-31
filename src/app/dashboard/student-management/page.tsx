@@ -50,12 +50,15 @@ export default async function Page() {
 					{students.map((student) => {
 						return (
 							<tr className="border-b border-gray-200" key={student._id}>
-								<Link
+								
+								<td className="table-title py-3">
+									<Link
 									href={`/dashboard/student-management/student/${student._id}`}
 									className="hover:bg-gray-100"
-								>
-									<td className="table-title py-3">{student.fullName}</td>
-								</Link>
+									>
+										{student.fullName}
+									</Link>
+								</td>
 								<td className="table-title py-3">
 									{convertDateString(student.dateOfBirth)}
 								</td>
