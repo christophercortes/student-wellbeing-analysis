@@ -1,4 +1,5 @@
 import { StudentResponse } from "@/global/studentResponse";
+import Link from "next/link";
 
 export default async function Page() {
 	async function getStudents() {
@@ -35,8 +36,13 @@ export default async function Page() {
 				<tbody>
 					{students.map((student) => {
 						return (
-							<tr key={student._id} className="border-b border-gray-200">
-								<td className="table-title py-3">{student.fullName}</td>
+							<tr className="border-b border-gray-200" key={student._id}>
+								<Link
+									href={`/dashboard/student-management/student/${student._id}`}
+									className="hover:bg-gray-100"
+								>
+									<td className="table-title py-3">{student.fullName}</td>
+								</Link>
 								<td className="table-title py-3">
 									{new Date(student.dateOfBirth).toLocaleDateString()}
 								</td>
