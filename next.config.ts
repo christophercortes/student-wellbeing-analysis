@@ -15,3 +15,17 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+const turboAliases = {
+	sharp: "sharp",
+	"onnxruntime-node": "onnxruntime-node",
+};
+
+const withTurboAliases = {
+	turbopack: {
+		resolveAlias: turboAliases,
+	},
+};
+
+// Fusiona la configuración de Turbopack con la existente
+Object.assign(nextConfig, withTurboAliases);
