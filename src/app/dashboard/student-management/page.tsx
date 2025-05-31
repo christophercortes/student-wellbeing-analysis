@@ -16,6 +16,19 @@ export default async function Page() {
 		return (data.students as StudentResponse[]) || [];
 	}
 
+	const convertDateString = (oldDate: Date) => {
+		// Workable date
+		const date = new Date(oldDate);
+		// Convert the date object
+		const year = (date.getFullYear());
+		const day = (date.getDate() + 1);
+		const month = (date.getMonth() + 1);
+
+		const dateString = `${month}/${day}/${year}`;
+
+		return (dateString)
+	}
+
 	const students = await getStudents();
 	return (
 		<>
@@ -38,7 +51,7 @@ export default async function Page() {
 							<tr key={student._id} className="border-b border-gray-200">
 								<td className="table-title py-3">{student.fullName}</td>
 								<td className="table-title py-3">
-									{new Date(student.dateOfBirth).toLocaleDateString()}
+									{convertDateString(student.dateOfBirth)}
 								</td>
 								<td className="table-title py-3">{student.courseName}</td>
 								<td className="table-title py-3">{student.teacherName}</td>
