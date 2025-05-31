@@ -252,7 +252,7 @@ export default function EditStudentForm({
                     ></input>
                 </div>
                 <div>
-                    <button className="bg-blue-300 shrink text-gray-700 py-3 px-6 w-fit border px-8 py-2" type="submit">Update Student</button>
+                    <button className="bg-blue-300 shrink text-gray-700 py-3 px-6 w-fit border px-8 py-2 hover:bg-blue-400 hover:text-white" type="submit">Update Student</button>
                 </div>
             </form>
         </div>

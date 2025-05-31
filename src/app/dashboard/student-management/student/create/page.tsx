@@ -216,7 +216,7 @@ export default function AddStudent()
                     ></input>
                 </div>
                 <div>
-                    <button className="bg-blue-300 shrink text-gray-700 py-3 px-6 w-fit border px-8 py-2" type="submit">Add Student</button>
+                    <button className="bg-blue-300 shrink text-gray-700 py-3 px-6 w-fit border px-8 py-2 hover:bg-blue-400 hover:text-white" type="submit">Add Student</button>
                 </div>
             </form>
         </div>
