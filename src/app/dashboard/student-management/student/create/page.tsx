@@ -111,15 +111,15 @@ export default function AddStudent()
                             parentEmail }),
                     });
                 
-                // Push back to the student managment page
-                if (res.ok)
+                // If res is not ok
+                if (!res.ok)
                 {
-                    // Push back to the student managment page
-                    router.push('/dashboard/student-management');
-                } else {
                     // Throw new error letting us know we were not able to create a student
                     throw new Error("Failed to create new student.");
                 }
+
+                // Push back to the student managment page
+                router.push('/dashboard/student-management');
             } catch (error) {
                 // Log the error
                 console.log(error);
