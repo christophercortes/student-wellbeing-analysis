@@ -1,5 +1,6 @@
 import { StudentResponse } from "@/global/studentResponse";
 import Link from "next/link";
+import RemoveStudent from "@/components/dashboard/student-management/RemoveStudent";
 
 export default async function Page() {
 	async function getStudents() {
@@ -33,17 +34,26 @@ export default async function Page() {
 	const students = await getStudents();
 	return (
 		<>
+			<div className="flex m-5">
+				<button className="bg-blue-300 shrink text-sm text-gray-700 py-3 px-6 border px-8 py-2 hover:bg-blue-400 hover:text-white">
+					<Link
+					href={"/dashboard/student-management/student/create"}
+					>
+						Create Student
+					</Link>
+				</button>
+			</div>
 			<h2 className="mt-8 text-lg font-semibold text-center">Management</h2>
 			<table className="mt-9 w-3/5 mx-auto table-auto border-collapse text-sm">
 				<thead>
 					<tr className="border-b border-gray-200">
 						<th className=" table-title">Name</th>
-						<th className="table-title">Birthdate</th>
+						<th className="table-title hidden md:table-cell">Birthdate</th>
 						<th className="table-title">Course?</th>
 						<th className="table-title">Teacher</th>
-						<th className="table-title">Phone Number</th>
-						<th className="table-title">Parent</th>
-						<th className="table-title">Parent Email</th>
+						<th className="table-title hidden lg:table-cell">Phone Number</th>
+						{/* <th className="table-title hidden md:table-cell">Parent</th>
+						<th className="table-title hidden lg:table-cell">Parent Email</th> */}
 					</tr>
 				</thead>
 				<tbody>
@@ -59,14 +69,25 @@ export default async function Page() {
 										{student.fullName}
 									</Link>
 								</td>
-								<td className="table-title py-3">
+								<td className="table-title py-3 hidden md:table-cell">
 									{convertDateString(student.dateOfBirth)}
 								</td>
 								<td className="table-title py-3">{student.courseName}</td>
 								<td className="table-title py-3">{student.teacherName}</td>
-								<td className="table-title py-3">{student.contactInfo}</td>
-								<td className="table-title py-3">{student.parentName}</td>
-								<td className="table-title py-3">{student.parentEmail}</td>
+								<td className="table-title py-3 hidden lg:table-cell">{student.contactInfo}</td>
+								{/* <td className="table-title py-3 hidden md:table-cell">{student.parentName}</td>
+								<td className="table-title py-3 hidden lg:table-cell">{student.parentEmail}</td> */}
+								<td className="table-title py-3">
+									<Link 
+									href={`/dashboard/student-management/student/update/${student._id}`}
+									className="text-blue-400 hover:text-blue-200"
+									>
+										Edit
+									</Link>
+								</td>
+								<td className="table-title py-3">
+									<RemoveStudent id={student._id} fullName={student.fullName} />
+								</td>
 							</tr>
 						);
 					})}
