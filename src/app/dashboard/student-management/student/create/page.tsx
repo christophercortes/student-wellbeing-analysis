@@ -4,6 +4,7 @@
 // Required Imports
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Export page for viewer
 export default function AddStudent()
@@ -132,7 +133,7 @@ export default function AddStudent()
         <h2 className="mt-8 text-lg font-semibold text-center text-gray-700">Create New Student</h2>
         <div className="flex justify-center items-center">
             <form onSubmit={ handleSubmit } className="flex flex-col gap-3 px-8 py-2 mt-9 w-3/5 justify-center">
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Full Name:</label>
@@ -144,7 +145,7 @@ export default function AddStudent()
                         placeholder="Enter Student Full Name"
                     ></input>
                 </div>
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Date of Birth:</label>
@@ -155,7 +156,7 @@ export default function AddStudent()
                         type="date"
                     ></input>
                 </div>
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Course Name:</label>
@@ -167,7 +168,7 @@ export default function AddStudent()
                         placeholder="Enter Course"
                     ></input>
                 </div>
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Teacher Name:</label>
@@ -179,7 +180,7 @@ export default function AddStudent()
                         placeholder="Enter Teacher"
                     ></input>
                 </div>
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Contact Info:</label>
@@ -191,7 +192,7 @@ export default function AddStudent()
                         placeholder="Enter Student Contact Info"
                     ></input>
                 </div>
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Parent Name:</label>
@@ -203,7 +204,7 @@ export default function AddStudent()
                         placeholder="Enter Student Parent Name"
                     ></input>
                 </div>
-                <div className="border px-8 py-2">
+                <div className="border border-gray-700 px-8 py-2">
                     <label 
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Parent Email:</label>
@@ -217,6 +218,9 @@ export default function AddStudent()
                 </div>
                 <div>
                     <button className="bg-blue-300 shrink text-gray-700 py-3 px-6 w-fit border px-8 py-2 hover:bg-blue-400 hover:text-white" type="submit">Add Student</button>
+                </div>
+                <div>
+                    <Link className="text-blue-400 hover:text-blue-200 py-5" href={"/dashboard/student-management"}>Go Back</Link>
                 </div>
             </form>
         </div>
