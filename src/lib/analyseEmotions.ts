@@ -1,20 +1,16 @@
-interface huggingFaceEmotion {
-	label: string;
-	score: number;
-}
+import huggingFaceEmotion from "@/global/huggingFaceEmotion";
+import vaderResult from "@/global/vaderResult";
 
-interface vaderResult {
-	compound: number;
-}
-
-export function extractTopEmotion(emotions: huggingFaceEmotion[]) {
+export function extractTopEmotion(
+	emotions: huggingFaceEmotion[]
+): huggingFaceEmotion {
 	// Extract top emotion
 	const topEmotion = emotions.sort((a, b) => b.score - a.score)[0];
 	const emotionName = topEmotion.label;
 	const emotionScore = Math.round(topEmotion.score * 100);
 	return {
-		emotionName,
-		emotionScore,
+		label: emotionName,
+		score: emotionScore,
 	};
 }
 

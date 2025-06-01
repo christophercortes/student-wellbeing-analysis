@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import vader from "vader-sentiment";
+import { ChartPieLabelList } from "./dashboard/PieChart";
 // {neg: 0.0, neu: 0.299, pos: 0.701, compound: 0.8545}
 
 const input = "VADER is very smart, handsome, and funny";
@@ -90,6 +91,7 @@ export const SentimentAnalysis = () => {
 						</pre>
 					</div>
 				)}
+				{result && <ChartPieLabelList studentName="pedro" emotions={result} />}
 			</div>
 		);
 	};
