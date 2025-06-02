@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { inter } from '@/components/fonts';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sentiment Analysis",
