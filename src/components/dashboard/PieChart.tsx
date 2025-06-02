@@ -47,7 +47,7 @@ export function ChartPieLabelList({ studentName, emotions }: chartProps) {
 		<Card className="flex flex-col">
 			<CardHeader className="items-center pb-0">
 				<CardTitle>Emotion Distribution</CardTitle>
-				<CardDescription>{studentName}'s Emotional State</CardDescription>
+				<CardDescription>{studentName}&apos;s Emotional State</CardDescription>
 			</CardHeader>
 			<CardContent className="flex-1 pb-0">
 				<ChartContainer
