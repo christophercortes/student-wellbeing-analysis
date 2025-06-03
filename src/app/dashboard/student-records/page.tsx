@@ -1,5 +1,3 @@
-'use client';
-
 import Time from "@/components/dashboard/date";
 import Search from "@/components/dashboard/SearchStudent";
 import StudentTable from "@/components/dashboard/StudentTable";
