@@ -1,11 +1,12 @@
 import Time from "@/components/dashboard/date";
 import Search from "@/components/dashboard/SearchStudent";
 import StudentTable from "@/components/dashboard/StudentTable";
-//import { Metadata } from "next";
+import { Suspense } from "react";
+import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//   title: "Records",
-// };
+export const metadata: Metadata = {
+  title: "Records",
+};
 
 export default function Page() {
   return (
@@ -14,9 +15,13 @@ export default function Page() {
         <div className="flex justify-end">
           <Time />
         </div>
-        <Search placeholder="Search for a student..." />
+        <Suspense>
+          <Search placeholder="Search for a student..." />
+        </Suspense>
         <div className="bg-white rounded-lg shadow border border-gray-200 p-4">
-          <StudentTable />
+          <Suspense>
+            <StudentTable />
+          </Suspense>
         </div>
       </div>
     </div>
