@@ -3,11 +3,11 @@
 import Time from "@/components/dashboard/date";
 import Search from "@/components/dashboard/SearchStudent";
 import StudentTable from "@/components/dashboard/StudentTable";
-import { Metadata } from "next";
+//import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Records",
-};
+// export const metadata: Metadata = {
+//   title: "Records",
+// };
 
 export default function Page() {
   return (
