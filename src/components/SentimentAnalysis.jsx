@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import vader from "vader-sentiment";
 import { ChartPieLabelList } from "./dashboard/PieChart";
+import clsx from "clsx";
 // {neg: 0.0, neu: 0.299, pos: 0.701, compound: 0.8545}
 
 const input = "VADER is very smart, handsome, and funny";
@@ -34,7 +35,11 @@ export const SentimentAnalysis = () => {
 					setLoading(true);
 					break;
 				case "complete":
-					setResult(e.data.output);
+					setResult({
+						output: e.data.output,
+						vaderTone: e.data.vaderTone,
+						topEmotion: e.data.topEmotion,
+					});
 					setLoading(false);
 					break;
 				case "error":
@@ -68,6 +73,34 @@ export const SentimentAnalysis = () => {
 			worker.current.postMessage({ text });
 		}
 	}, []);
+	let summary = null;
+	let classNames = null;
+	if (result) {
+		const { vaderTone: tone, topEmotion } = result;
+		const { label: emotion } = topEmotion;
+		classNames = clsx({
+			"text-orange-500": tone === "positive" && emotion === "joy",
+			"text-blue-500": tone === "negative" && emotion === "sadness",
+			"text-red-500": tone === "negative" && emotion === "anger",
+			"text-yellow-500": tone === "neutral" && emotion === "fear",
+			"text-gray-500": tone === "neutral" && emotion === "neutral",
+		});
+		// Summary message
+		const emotionScore = Math.round(result.topEmotion.score);
+		if (tone === "positive" && emotion === "joy") {
+			summary = `The tone is positive and the main feeling is joy with a ${emotionScore}% score. The student appears emotionally well.`;
+		} else if (tone === "negative" && emotion === "sadness") {
+			summary = `The tone is negative and the main feeling is sadness with a ${emotionScore}% score. This may suggest signs of depression. Please check on the student.`;
+		} else if (tone === "negative" && emotion === "anger") {
+			summary = `The tone is negative and the main feeling is anger with a ${emotionScore}% score. This could indicate frustration or bullying. Intervention may be needed.`;
+		} else if (tone === "neutral" && emotion === "fear") {
+			summary = `The tone is neutral but the main feeling is fear with a ${emotionScore}% score. The student might feel anxious or unsafe. Further observation is recommended.`;
+		} else if (tone === "neutral" && emotion === "neutral") {
+			summary = `The tone and emotion are neutral. The student's emotional state seems stable.`;
+		} else {
+			summary = `The tone is ${tone} and the main feeling is ${emotion} with a ${emotionScore}% score. Continue monitoring the student as needed.`;
+		}
+	}
 
 	const renderResults = () => {
 		if (loading) return "Loading...";
@@ -76,22 +109,9 @@ export const SentimentAnalysis = () => {
 		return (
 			<div className="space-y-4">
 				{result && (
-					<div>
-						<h3 className="text-lg font-semibold mb-2">Emotion Analysis:</h3>
-						<pre className="bg-gray-100 p-2 rounded">
-							{JSON.stringify(result, null, 2)}
-						</pre>
-					</div>
+					<ChartPieLabelList studentName="pedro" emotions={result.output} />
 				)}
-				{vaderResult && (
-					<div>
-						<h3 className="text-lg font-semibold mb-2">VADER Sentiment:</h3>
-						<pre className="bg-gray-100 p-2 rounded">
-							{JSON.stringify(vaderResult, null, 2)}
-						</pre>
-					</div>
-				)}
-				{result && <ChartPieLabelList studentName="pedro" emotions={result} />}
+				{summary && <p className={classNames || "font-bold"}>{summary}</p>}
 			</div>
 		);
 	};
