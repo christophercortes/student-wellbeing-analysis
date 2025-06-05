@@ -76,7 +76,7 @@ export default async function Page()
 					<tr className="border-b border-gray-200">
 						<th className=" table-title">Name</th>
 						<th className="table-title">Code</th>
-						<th className="table-title">Duration</th>
+						<th className="table-title hidden lg:table-cell">Duration</th>
 						<th className="table-title">Active</th>
 					</tr>
 				</thead>
@@ -94,8 +94,16 @@ export default async function Page()
 									</Link>
 								</td>
 								<td className="table-title py-3">{course.courseCode}</td>
-								<td className="table-title py-3">{`${course.durationInWeeks} ${weekDisplay(course.durationInWeeks)}`}</td>
-								<td className="table-title py-3 hidden lg:table-cell">{isActiveCourse(course.isActive)}</td>
+								<td className="table-title py-3 hidden lg:table-cell">{`${course.durationInWeeks} ${weekDisplay(course.durationInWeeks)}`}</td>
+								<td className="table-title py-3">{isActiveCourse(course.isActive)}</td>
+                                <td className="table-title py-3">
+									<Link 
+									href={`/dashboard/course-management/course/update/${course._id}`}
+									className="text-blue-400 hover:text-blue-200"
+									>
+										Edit
+									</Link>
+								</td>
 							</tr>
 						);
 					})}
