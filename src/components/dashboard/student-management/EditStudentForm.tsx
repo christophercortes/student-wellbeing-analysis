@@ -130,7 +130,7 @@ export default function EditStudentForm({
             {
                 // Connect to the db
                 const res = await fetch( 
-                    `${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api/students" }/api/students/${id}`, 
+                    `${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/students/${id}`, 
                     {
                         method: "PUT",
                         headers: 
