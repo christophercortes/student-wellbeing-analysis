@@ -49,7 +49,7 @@ export default async function Page() {
 					<tr className="border-b border-gray-200">
 						<th className=" table-title">Name</th>
 						<th className="table-title hidden md:table-cell">Birthdate</th>
-						<th className="table-title">Course?</th>
+						<th className="table-title">Course</th>
 						<th className="table-title">Teacher</th>
 						<th className="table-title hidden lg:table-cell">Phone Number</th>
 					</tr>
