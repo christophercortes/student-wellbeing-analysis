@@ -29,7 +29,7 @@ export default async function Page ({params,}: {params: Promise<{ id: string }>;
     }
 
     // Display if active or not
-    const isActiveCourse = (isActive: Boolean) => {
+    const isActiveCourse = (isActive: boolean) => {
         // If it is active return string 'active'
         if (isActive)
         {
@@ -39,6 +39,18 @@ export default async function Page ({params,}: {params: Promise<{ id: string }>;
             return ('Not Active');
         }
 
+    }
+
+    // Change the display of the active status color
+    const activeColor = (isActive: boolean) => {
+        // If it is active the color is green
+        if (isActive)
+        {
+            return ('text-green-400');
+        } else {
+            // if the course is not active
+            return ('text-red-600');
+        }
     }
 
     // Display weeks properly
@@ -85,7 +97,7 @@ export default async function Page ({params,}: {params: Promise<{ id: string }>;
                         </div>
                         <div>
                             <p className="font-semibold">Active:</p>
-                            <p>{isActiveCourse(course.isActive)}</p>
+                            <p className={activeColor(course.isActive)}>{isActiveCourse(course.isActive)}</p>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 // Imports
 import { CourseResponse } from "@/global/courseResponse";
 import Link from "next/link";
+import RemoveCourse from "@/components/dashboard/course-management/RemoveCourse";
 
 // Export the page
 export default async function Page() 
@@ -35,7 +36,7 @@ export default async function Page()
     const courses = await getCourses();
 
     // Display if active or not
-    const isActiveCourse = (isActive: Boolean) => {
+    const isActiveCourse = (isActive: boolean) => {
         // If it is active return string 'active'
         if (isActive)
         {
@@ -45,6 +46,18 @@ export default async function Page()
             return ('Not Active');
         }
 
+    }
+
+    // Change the display of the active status color
+    const activeColor = (isActive: boolean) => {
+        // If it is active the color is green
+        if (isActive)
+        {
+            return ('text-green-400');
+        } else {
+            // if the course is not active
+            return ('text-red-600');
+        }
     }
 
     // Display weeks properly
@@ -95,7 +108,7 @@ export default async function Page()
 								</td>
 								<td className="table-title py-3">{course.courseCode}</td>
 								<td className="table-title py-3 hidden lg:table-cell">{`${course.durationInWeeks} ${weekDisplay(course.durationInWeeks)}`}</td>
-								<td className="table-title py-3">{isActiveCourse(course.isActive)}</td>
+								<td className="table-title py-3"><p className={activeColor(course.isActive)}>{isActiveCourse(course.isActive)}</p></td>
                                 <td className="table-title py-3">
 									<Link 
 									href={`/dashboard/course-management/course/update/${course._id}`}
@@ -104,6 +117,9 @@ export default async function Page()
 										Edit
 									</Link>
 								</td>
+                                <td className="table-title py-3">
+                                    <RemoveCourse id={course._id} courseName={course.courseName} />
+                                </td>
 							</tr>
 						);
 					})}
