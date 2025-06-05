@@ -32,7 +32,6 @@ export async function PUT(request: Request, { params }: { params: Promise<{id: s
             newCourseCode: courseCode, 
             newDescription: description, 
             newDurationInWeeks: durationInWeeks, 
-            newTeacher: teacher, 
             newIsActive: isActive } = await request.json();
     // Connect to the db
     await connectMonDb();
@@ -43,7 +42,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{id: s
         // Update the course based on the course id
         const updated = await Course.findByIdAndUpdate(
             id, 
-            { courseName, courseCode, description, durationInWeeks, teacher, isActive }
+            { courseName, courseCode, description, durationInWeeks, isActive }
         );
         
         // Return a message based on success or not

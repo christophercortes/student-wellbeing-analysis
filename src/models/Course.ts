@@ -5,7 +5,6 @@ export interface ICourse extends Document {
   courseCode: string;
   description?: string;
   durationInWeeks: number;
-  teacher: mongoose.Types.ObjectId; // Reference to Teacher
   isActive: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -28,11 +27,6 @@ const courseSchema = new Schema<ICourse>(
     durationInWeeks: {
       type: Number,
       required: [true, 'Duration is required'],
-    },
-    teacher: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Teacher',
-      required: [true, 'Teacher reference is required'],
     },
     isActive: {
       type: Boolean,
