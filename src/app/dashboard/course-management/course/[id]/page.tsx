@@ -41,6 +41,17 @@ export default async function Page ({params,}: {params: Promise<{ id: string }>;
 
     }
 
+    // Display weeks properly
+    const weekDisplay = (weekAmount: number) => {
+        // If it is 1 send a different string
+        if (weekAmount === 1)
+        {
+            return ('Week');
+        } else {
+            return ('Weeks');
+        }
+    }
+
     // Save the course data to a variable
     const { course } = await getCourse(id);
 
@@ -70,7 +81,7 @@ export default async function Page ({params,}: {params: Promise<{ id: string }>;
                         </div>
                         <div>
                             <p className="font-semibold">Duration</p>
-                            <p>{`${course.durationInWeeks} Weeks`}</p>
+                            <p>{`${course.durationInWeeks} ${weekDisplay(course.durationInWeeks)}`}</p>
                         </div>
                         <div>
                             <p className="font-semibold">Active:</p>

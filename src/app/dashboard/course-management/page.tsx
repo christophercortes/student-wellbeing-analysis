@@ -47,15 +47,26 @@ export default async function Page()
 
     }
 
+    // Display weeks properly
+    const weekDisplay = (weekAmount: number) => {
+        // If it is 1 send a different string
+        if (weekAmount === 1)
+        {
+            return ('Week');
+        } else {
+            return ('Weeks');
+        }
+    }
+
     // Return the page
     return (
         <>
             <div className="flex m-5">
 				<button className="bg-blue-300 shrink text-sm text-gray-700 py-3 px-6 border px-8 py-2 hover:bg-blue-400 hover:text-white">
 					<Link
-					href={"/dashboard/student-management/student/create"}
+					href={"/dashboard/course-management/course/create"}
 					>
-						Create Student
+						Create Course
 					</Link>
 				</button>
 			</div>
@@ -83,7 +94,7 @@ export default async function Page()
 									</Link>
 								</td>
 								<td className="table-title py-3">{course.courseCode}</td>
-								<td className="table-title py-3">{`${course.durationInWeeks} Weeks`}</td>
+								<td className="table-title py-3">{`${course.durationInWeeks} ${weekDisplay(course.durationInWeeks)}`}</td>
 								<td className="table-title py-3 hidden lg:table-cell">{isActiveCourse(course.isActive)}</td>
 							</tr>
 						);
