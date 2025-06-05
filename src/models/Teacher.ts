@@ -1,17 +1,21 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model, models } from 'mongoose';
 
+// 1. The base interface now includes the optional 'password' field.
 export interface ITeacher extends Document {
   fullName: string;
   email: string;
+  password?: string; 
   phoneNumber: string;
   subjectSpecialization: string;
   teacherId: string;
   address?: string;
   isActive: boolean;
   profilePicture?: string; 
-  createdAt?: Date;
-  updatedAt?: Date;
 }
+
+// 2. This helper type is for when we specifically request the password.
+export type ITeacherWithPassword = ITeacher & { password: Required<ITeacher['password']> };
+
 
 const teacherSchema = new Schema<ITeacher>(
   {
@@ -23,6 +27,12 @@ const teacherSchema = new Schema<ITeacher>(
       type: String,
       required: [true, 'Email address is required'],
       unique: true,
+    },
+  
+    password: { 
+      type: String,
+      required: [true, 'Password is required'],
+      select: false,
     },
     phoneNumber: {
       type: String
@@ -52,5 +62,7 @@ const teacherSchema = new Schema<ITeacher>(
   }
 );
 
-const Teacher = model<ITeacher>('Teacher', teacherSchema);
+// 4. Use 'models.Teacher' to prevent Next.js hot-reloading errors.
+const Teacher = models.Teacher || model<ITeacher>('Teacher', teacherSchema);
+
 export default Teacher;
