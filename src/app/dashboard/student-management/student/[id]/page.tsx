@@ -1,3 +1,6 @@
+// Imports
+import Link from 'next/link';
+
 export default async function Page({
 	params,
 }: {
@@ -54,6 +57,9 @@ export default async function Page({
 					</div>
 				</div>
 			</div>
+			<div className="mt-8">
+                <Link className="text-blue-400 hover:text-blue-200 py-5" href={"/dashboard/student-management"}>Go Back</Link>
+            </div>
 		</div>
 	);
 }

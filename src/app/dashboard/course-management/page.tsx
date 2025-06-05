@@ -76,7 +76,7 @@ export default async function Page()
 								
 								<td className="table-title py-3">
 									<Link
-									href={`/dashboard/student-management/student/${course._id}`}
+									href={`/dashboard/course-management/course/${course._id}`}
 									className="hover:bg-gray-100"
 									>
 										{course.courseName}
