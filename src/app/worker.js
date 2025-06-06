@@ -32,13 +32,13 @@ self.addEventListener("message", async (event) => {
 		});
 
 		const vaderTone = extractTone(intensity);
-		console.log("🚀 ~ self.addEventListener ~ vaderTone:", vaderTone);
 		const topEmotion = extractTopEmotion(output);
-		console.log("🚀 ~ self.addEventListener ~ topEmotion:", topEmotion);
 		// Send the output back to the main thread
 		self.postMessage({
 			status: "complete",
 			output: output,
+			vaderTone,
+			topEmotion,
 		});
 	} catch (error) {
 		// Handle any errors
