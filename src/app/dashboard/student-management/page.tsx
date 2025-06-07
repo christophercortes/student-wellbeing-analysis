@@ -82,7 +82,7 @@ export default async function Page() {
 									</Link>
 								</td>
 								<td className="table-title py-3">
-									<RemoveStudent id={student._id} fullName={student.fullName} />
+									<RemoveStudent id={student._id} fullName={student.fullName} image_id={student.image_id} />
 								</td>
 							</tr>
 						);

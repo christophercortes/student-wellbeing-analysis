@@ -55,12 +55,11 @@ export async function POST(request: Request)
         const bufferData = await file.arrayBuffer();
         const buffer = Buffer.from(bufferData);
 
-
         // Save the data to the database
-        await Image.create({ name: file.name, data: buffer, contentType: file.type });
+        const savedImage = await Image.create({ name: file.name, data: buffer, contentType: file.type });
 
         // Return the success response
-        return NextResponse.json({ message: "Image Saved" }, { status: 201 });
+        return NextResponse.json({ id: savedImage.id }, { status: 201 }); // Return the image id so you can obtain the id for student or teacher.
     } catch (error) {
         // Display the error to the console
         console.error("An Error Occured: ", error);

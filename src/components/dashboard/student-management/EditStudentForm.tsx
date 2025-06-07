@@ -15,7 +15,9 @@ export default function EditStudentForm({
     teacherName, 
     contactInfo, 
     parentName, 
-    parentEmail }: 
+    parentEmail,
+    age,
+    image_id }: 
     {id: string; 
         fullName: string; 
         dateOfBirth: Date; 
@@ -23,7 +25,9 @@ export default function EditStudentForm({
         teacherName: string; 
         contactInfo: string; 
         parentName: string; 
-        parentEmail: string;})
+        parentEmail: string;
+        age: number;
+        image_id: string;})
 {
     // Function to convert the date
     const convertDate = () => {
@@ -50,6 +54,7 @@ export default function EditStudentForm({
     const [newContactInfo, setNewContactInfo] = useState(contactInfo);
     const [newParentName, setNewParentName] = useState(parentName);
     const [newParentEmail, setNewParentEmail] = useState(parentEmail);
+    const [newAge, setNewAge] = useState(age);
 
     // Router to return to the student managment page after successful update
     const router = useRouter();
@@ -143,7 +148,10 @@ export default function EditStudentForm({
                             newTeacherName, 
                             newContactInfo, 
                             newParentName, 
-                            newParentEmail }),
+                            newParentEmail,
+                            newAge,
+                            image_id
+                             }),
                     });
                 
                 // If res is not ok
@@ -152,11 +160,28 @@ export default function EditStudentForm({
                     // Throw new error letting us know we were not able to create a student
                     throw new Error("Failed to update student.");
                 }
+                // Now ask if the user wants to update the image file
+                const confirmed = confirm(`Do you want to update the image file for ${newFullName}`);
 
-                // Refresh the router to show the update with out having the user refresh the browser
-                router.refresh();
-                // Push back to the student managment page
-                router.push('/dashboard/student-management');
+                if (confirmed)
+                {
+                    // If they would like to redirect to the image update page
+                    router.refresh();
+                    // Depending on if the student has an image or not send to the proper page
+                    if (image_id.length > 0)
+                    {
+                        // Push to the student image edit page this takes in the image_id
+                        router.push(`/dashboard/student-management/student/image/update/${image_id}`);
+                    } else {
+                        // Push to the add image to student age -- This takes in the student id
+                        router.push(`/dashboard/student-management/student/image/update/addNew/${id}`);
+                    }
+                } else {
+                    // Refresh the router to show the update with out having the user refresh the browser
+                    router.refresh();
+                    // Push back to the student managment page
+                    router.push('/dashboard/student-management');
+                }
             } catch (error) {
                 // Log the error
                 console.log(error);
@@ -186,7 +211,31 @@ export default function EditStudentForm({
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Date of Birth:</label>
                     <input
-                        onChange={ (e) => setNewDateOfBirth(e.target.value) }
+                        onChange={ (e) => {
+                            // Work to update age
+                            const birthDate = new Date(e.target.value);
+                            const currentDate = new Date();
+
+                            // Separate into two different groups of variables
+                            const birthYear = birthDate.getFullYear();
+                            const birthMonth = birthDate.getMonth() + 1;
+                            const birthDay = birthDate.getDate() + 1;
+
+                            const currentYear = currentDate.getFullYear();
+                            const currentMonth = currentDate.getMonth() + 1;
+                            const currentDay = currentDate.getDate();
+
+                            let currentAge = currentYear - birthYear;
+
+                            if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay))
+                            {
+                                // Subtract from age because they are not a year older yet.
+                                currentAge -= 1;
+                            }
+                            // Set the date on change, then update the age
+                            setNewDateOfBirth(e.target.value);
+                            setNewAge(currentAge);
+                        }}
                         value={ newDateOfBirth }
                         className="border rounded px-3 py-2 w-full text-gray-700" 
                         type="date"
@@ -250,6 +299,18 @@ export default function EditStudentForm({
                         className="border rounded px-3 py-2 w-full text-gray-700" 
                         type="email" 
                         placeholder="Enter Parent Email"
+                    ></input>
+                </div>
+                <div className="border border-gray-700 px-8 py-2">
+                    <label 
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                    >Age:</label>
+                    <input
+                        value={ newAge }   
+                        className="border rounded px-3 py-2 w-full text-gray-700" 
+                        type="number" 
+                        placeholder="Enter Age"
+                        readOnly
                     ></input>
                 </div>
                 <div>

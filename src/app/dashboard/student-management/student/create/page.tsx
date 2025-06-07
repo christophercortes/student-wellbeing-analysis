@@ -17,6 +17,8 @@ export default function AddStudent()
     const [contactInfo, setContactInfo] = useState("");
     const [parentName, setParentName] = useState("");
     const [parentEmail, setParentEmail] = useState("");
+    const [age, setAge] = useState(0);
+    const [imageFile, setImageFile] = useState<File | null>(null);
 
     // Router to return to the student managment page after successful creation
     const router = useRouter();
@@ -28,6 +30,48 @@ export default function AddStudent()
         const emailTestRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         // Return true or false if the email passed or failed
         return emailTestRegex.test(email);
+    }
+
+    // Function to save the file to the db
+    async function saveFile(file: File)
+    {
+        if (!file)
+        {
+            // Send alert telling user to select file
+            alert('Please select a file.');
+            return;
+        }
+
+        // Create new FormData to save the file
+        const data = new FormData();
+
+        // Append the file to the data
+        data.append('file', file);
+
+        // Try to save the file to mongoDB
+        try
+        {
+            const res = await fetch(`${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/images/upload`,
+                {
+                    method: "POST",
+                    body: data,
+                }
+            );
+            
+            if (!res.ok) 
+            {
+                alert("File not uploaded");
+            } else {
+                // Return the image id to be saved
+                const { id } = await res.json();
+
+                // Return the string id
+                return (id);
+            }
+        } catch (error) {
+            // Log the error
+            console.log(error);
+        }
     }
 
     // Function to handle submit
@@ -91,6 +135,17 @@ export default function AddStudent()
             // Toss the alert to the user to fix the fields
             alert(alertMessage);
         } else {
+            // Create a variable to hold the id
+            let image_id = "";
+            // If all the other fields are ok, now try the file
+            if (!imageFile)
+            {
+                // Set the image id to a blank string. Because the file was null.
+                image_id = "";
+            } else {
+                // Save the file and obtain the id for saving
+                image_id = await saveFile(imageFile as File);
+            }
             // Do the other code if everything is fine
             // Try to hook to the db and add the student
             try
@@ -109,7 +164,9 @@ export default function AddStudent()
                             teacherName, 
                             contactInfo, 
                             parentName, 
-                            parentEmail }),
+                            parentEmail,
+                            age,
+                            image_id }),
                     });
                 
                 // If res is not ok
@@ -150,7 +207,31 @@ export default function AddStudent()
                         className="block mb-2 text-sm font-medium text-gray-700"
                     >Date of Birth:</label>
                     <input
-                        onChange={ (e) => setDateOfBirth(e.target.value) } 
+                        onChange={ (e) => {
+                            // Work to update age
+                            const birthDate = new Date(e.target.value);
+                            const currentDate = new Date();
+
+                            // Separate into two different groups of variables
+                            const birthYear = birthDate.getFullYear();
+                            const birthMonth = birthDate.getMonth() + 1;
+                            const birthDay = birthDate.getDate() + 1;
+
+                            const currentYear = currentDate.getFullYear();
+                            const currentMonth = currentDate.getMonth() + 1;
+                            const currentDay = currentDate.getDate();
+
+                            let currentAge = currentYear - birthYear;
+
+                            if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay))
+                            {
+                                // Subtract from age because they are not a year older yet.
+                                currentAge -= 1;
+                            }
+                            // Set the date on change, then update the age
+                            setDateOfBirth(e.target.value);
+                            setAge(currentAge);
+                        } } 
                         value={ dateOfBirth }  
                         className="border rounded px-3 py-2 w-full text-gray-700" 
                         type="date"
@@ -214,6 +295,36 @@ export default function AddStudent()
                         className="border rounded px-3 py-2 w-full text-gray-700" 
                         type="email" 
                         placeholder="Enter Parent Email"
+                    ></input>
+                </div>
+                <div className="border border-gray-700 px-8 py-2">
+                    <label 
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                    >Age:</label>
+                    <input
+                        value={ age }   
+                        className="border rounded px-3 py-2 w-full text-gray-700" 
+                        type="number" 
+                        placeholder="Enter Age"
+                        readOnly
+                    ></input>
+                </div>
+                <div className="border border-gray-700 px-8 py-2">
+                    <label 
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                    >Image File:</label>
+                    <input
+                        onChange={(e) => {
+                            const files = e.target.files;
+                            if (!files || files.length === 0)
+                            {
+                                setImageFile(null);
+                            } else {
+                                setImageFile(files[0]);
+                            }
+                        }}   
+                        className="border rounded px-3 py-2 w-full text-gray-700" 
+                        type="file"
                     ></input>
                 </div>
                 <div>
