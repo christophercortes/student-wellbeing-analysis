@@ -52,7 +52,7 @@ export default function StudentTable() {
               key={student.id}
               className="hover:bg-blue-50"
               onClick={() =>
-                router.push(`/dashboard/student-records/student/${student.id}`)
+                router.push(`/dashboard/student-records/student/${student._id}`)
               }
             >
               <td className="px-4 py-3 sm:lp-6">{student.fullName}</td>
