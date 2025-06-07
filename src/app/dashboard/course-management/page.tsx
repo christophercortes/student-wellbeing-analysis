@@ -3,73 +3,76 @@ import { CourseResponse } from "@/global/courseResponse";
 import Link from "next/link";
 import RemoveCourse from "@/components/dashboard/course-management/RemoveCourse";
 
+export const dynamic = "force-dynamic"; // Added this here to stop an error from breaking the page at build
+
+// Obtain the Courses from the API
+async function getCourses() 
+{
+    // Put a try here for safety
+    try 
+    {
+        const response = await fetch(`${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/courses`,
+            { cache: "no-store" }
+        );
+
+        if (!response.ok)
+        {
+            // Throw the error
+            throw new Error("Error fetching courses");
+        }
+
+        // If everything is ok return the data
+        const data = await response.json();
+        return (data.courses as CourseResponse[]) || [];
+    } catch (error) {
+        // Display the error to console
+        console.error(error);
+        return [];
+    }
+}
+
+// Display if active or not
+const isActiveCourse = (isActive: boolean) => {
+    // If it is active return string 'active'
+    if (isActive)
+    {
+        return ('Active');
+    } else {
+        // If not return string 'not active'
+        return ('Not Active');
+    }
+
+}
+
+// Change the display of the active status color
+const activeColor = (isActive: boolean) => {
+    // If it is active the color is green
+    if (isActive)
+    {
+        return ('text-green-400');
+    } else {
+        // if the course is not active
+        return ('text-red-600');
+    }
+}
+
+// Display weeks properly
+const weekDisplay = (weekAmount: number) => {
+    // If it is 1 send a different string
+    if (weekAmount === 1)
+    {
+        return ('Week');
+    } else {
+        return ('Weeks');
+    }
+}
+
 // Export the page
 export default async function Page() 
 {
-    // Obtain the Courses from the API
-    async function getCourses() 
-    {
-        // Put a try here for safety
-        try 
-        {
-            const response = await fetch(`${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/courses`,
-                { cache: "no-store" }
-            );
-
-            if (!response.ok)
-            {
-                // Throw the error
-                throw new Error("Error fetching courses");
-            }
-
-            // If everything is ok return the data
-            const data = await response.json();
-            return (data.courses as CourseResponse[]) || [];
-        } catch (error) {
-            // Display the error to console
-            console.error(error);
-            return [];
-        }
-    }
-
     // Get the courses from the function
     const courses = await getCourses();
 
-    // Display if active or not
-    const isActiveCourse = (isActive: boolean) => {
-        // If it is active return string 'active'
-        if (isActive)
-        {
-            return ('Active');
-        } else {
-            // If not return string 'not active'
-            return ('Not Active');
-        }
-
-    }
-
-    // Change the display of the active status color
-    const activeColor = (isActive: boolean) => {
-        // If it is active the color is green
-        if (isActive)
-        {
-            return ('text-green-400');
-        } else {
-            // if the course is not active
-            return ('text-red-600');
-        }
-    }
-
-    // Display weeks properly
-    const weekDisplay = (weekAmount: number) => {
-        // If it is 1 send a different string
-        if (weekAmount === 1)
-        {
-            return ('Week');
-        } else {
-            return ('Weeks');
-        }
-    }
 
     // Return the page
     return (
