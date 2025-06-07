@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { StudentResponse } from "@/global/studentResponse";
+import { SentimentAnalysis } from "@/components/SentimentAnalysis";
 
 export default function StudentDetailPage() {
   const params = useParams();
@@ -85,7 +86,7 @@ export default function StudentDetailPage() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               <td className="px-4 py-2">
-                Upload student written assignment to analyze
+                <SentimentAnalysis />
               </td>
             </tbody>
           </table>
@@ -102,9 +103,7 @@ export default function StudentDetailPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              <td className="px-4 py-2">
-                
-              </td>
+              <td className="px-4 py-2"></td>
             </tbody>
           </table>
         </section>
