@@ -3,7 +3,6 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { StudentResponse } from "@/global/studentResponse";
-import { ChartBarStacked } from "@/components/dashboard/BarChart";
 
 export default function StudentDetailPage() {
   const params = useParams();
@@ -104,7 +103,7 @@ export default function StudentDetailPage() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               <td className="px-4 py-2">
-                <ChartBarStacked />
+                
               </td>
             </tbody>
           </table>
