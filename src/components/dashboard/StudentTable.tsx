@@ -36,10 +36,10 @@ export default function StudentTable() {
 
   return (
     <div className="p-4 space-y-4">
-      <h1>List of Student</h1>
+      <h1 className="text-xl font-semibold">List of Student</h1>
       <table className="hidden min-w-full text-gray-900 md:table">
         <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
-          <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+          <tr className="w-full border-b py-3 text-sm">
             <th className="px-4 py-5 sm:pl-6">Student</th>
             <th className="px-3 py-5">Age</th>
             <th className="px-3 py-5">Teacher</th>
@@ -50,7 +50,7 @@ export default function StudentTable() {
           {filteredStudents.map((student) => (
             <tr
               key={student.id}
-              className="hover:bg-blue-50"
+              className="hover:bg-blue-50 cursor-pointer"
               onClick={() =>
                 router.push(`/dashboard/student-records/student/${student._id}`)
               }
@@ -63,6 +63,28 @@ export default function StudentTable() {
           ))}
         </tbody>
       </table>
+      {/* Mobile view */}
+      <div className="space-y-4 md:hidden">
+        {filteredStudents.map((student) => (
+          <div
+            key={student.id}
+            className="bg-white rounded-lg shadow p-4 border border-gray-200"
+            onClick={() =>
+              router.push(`/dashboard/student-records/student/${student._id}`)
+            }
+          >
+            <p className="font-semibold text-gray-900">{student.fullName}</p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Teacher: </span>
+              {student.teacherName}
+            </p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Course: </span>
+              {student.courseName}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
