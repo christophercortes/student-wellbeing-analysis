@@ -34,79 +34,117 @@ export default function StudentDetailPage() {
   if (!student) return;
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8 py-10">
-      <div className="max-w-5xl mx-auto space-y-8">
-        <section className="bg-white shadow rounded-xl p-6 space-y-4">
-          <h1 className="text-xl font-semibold text-gray-800">
+    <div className="min-h-screen bg-gray-50 sm:px-6 lg:px-8 py-6">
+      <div className="w-full max-w-7xl mx-auto space-y-6">
+        <div className="p-4 space-y-4">
+          <h2 className="hidden min-w-full sm:table text-xl font-semibold">
             Student Information
-          </h1>
-          <table className="hidden md:table w-full text-sm text-gray-700">
-            <thead className="bg-gray-100">
-              <tr className="text-left font-medium">
-                <th className="px-4 py-3">Name:</th>
-                <th className="px-4 py-3">Birth date:</th>
-                <th className="px-4 py-3">Course:</th>
+          </h2>
+          <table className="hidden min-w-full text-gray-900 md:table">
+            <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
+              <tr className="w-full border-b py-3 text-sm">
+                <th className="px-4 py-5 sm:pl-6">Name</th>
+                <th className="px-3 py-5">Birth date</th>
+                <th className="px-3 py-5">Course</th>
+                <th className="px-3 py-5">Teacher</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              <td className="px-4 py-2">{`${student.fullName}`}</td>
-              <td className="px-4 py-2">{`${student.dateOfBirth}`}</td>
-              <td className="px-4 py-2">{`${student.courseName}`}</td>
+            <tbody className="bg-white text-sm border-b">
+              <td className="px-4 py-3 sm:pl-6">{`${student.fullName}`}</td>
+              <td className="px-4 py-3">{`${student.dateOfBirth}`}</td>
+              <td className="px-4 py-3">{`${student.courseName}`}</td>
+              <td className="px-4 py-3">{student.teacherName}</td>
             </tbody>
           </table>
-        </section>
 
-        <section className="bg-white shadow rounded-xl p-6 space-y-4">
-          <h1 className="text-xl font-semibold text-gray-800">
+          <h2 className="hidden min-w-full sm:table text-xl font-semibold mt-8">
             Student Contact Information
-          </h1>
-          <table className="hidden md:table w-full text-sm text-gray-700">
-            <thead className="bg-gray-100">
-              <tr className="text-left font-medium">
-                <th className="px-4 py-3">Parent</th>
-                <th className="px-4 py-3">Email:</th>
+          </h2>
+          <table className="hidden min-w-full text-gray-900 md:table">
+            <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
+              <tr className="w-full border-b py-3 text-sm">
+                <th className="px-4 py-5 sm:pl-6">Parent</th>
+                <th className="px-3 py-5">Email</th>
+                <th className="px-3 py-5">Phone Number</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              <td className="px-4 py-2">{`${student.parentName}`}</td>
-              <td className="px-4 py-2">{`${student.parentEmail}`}</td>
+            <tbody className="bg-white text-sm border-b">
+              <td className="px-4 py-3 sm:pl-6">{`${student.parentName}`}</td>
+              <td className="px-4 py-3">{`${student.parentEmail}`}</td>
+              <td className="px-4 py-3">{student.contactInfo}</td>
             </tbody>
           </table>
-        </section>
 
-        <section className="bg-white shadow rounded-xl p-6 space-y-4">
-          <h1 className="text-xl font-semibold text-gray-800">
+          <h2 className="hidden min-w-full sm:table text-xl font-semibold mt-8">
             Upload Assignment
-          </h1>
-          <table className="hidden md:table w-full text-sm text-gray-700">
-            <thead className="bg-gray-100">
-              <tr className="text-left font-medium">
-                <th className="px-4 py-3">Upload</th>
+          </h2>
+          <table className="hidden min-w-full text-gray-900 md:table">
+            <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
+              <tr className="w-full border-b py-3 text-sm">
+                <th className="px-4 py-5 sm:pl-6">Upload</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              <td className="px-4 py-2">
-                <SentimentAnalysis />
-              </td>
+            <tbody className="bg-white border-b">
+              <SentimentAnalysis />
             </tbody>
           </table>
-        </section>
 
-        <section className="bg-white shadow rounded-xl p-6 space-y-4">
-          <h1 className="text-xl font-semibold text-gray-800">
+          <h2 className="hidden min-w-full sm:table text-xl font-semibold mt-8">
             Student Report
-          </h1>
-          <table className="hidden md:table w-full text-sm text-gray-700">
-            <thead className="bg-gray-100">
-              <tr className="text-left font-medium">
+          </h2>
+          <table className="hidden min-w-full text-gray-900 md:table">
+            <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
+              <tr className="w-full border-b py-3 text-sm">
                 <th className="px-4 py-3">Bar Chart Report</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="bg-white text-sm border-b">
               <td className="px-4 py-2"></td>
+              {/* chart goes here */}
             </tbody>
           </table>
-        </section>
+        </div>
+        {/* Mobile View */}
+        <div className="space-y-4 md:hidden">
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h2 className="text-lg font-semibold">Information</h2>
+            <p className="font-semibold text-gray-900">{student.fullName}</p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Birthday: </span>
+              {`${student.dateOfBirth}`}
+            </p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Course: </span>
+              {`${student.courseName}`}
+            </p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Teacher: </span>
+              {`${student.teacherName}`}
+            </p>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h2 className="text-lg font-semibold">Contact Information</h2>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Parent: </span>
+              {`${student.parentName}`}
+            </p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Email: </span>
+              {`${student.parentEmail}`}
+            </p>
+            <p className="text-sm text-gray-600">
+              <span className="font-medium font-semibold">Phone Number: </span>
+              {`${student.contactInfo}`}
+            </p>
+          </div>
+
+          <div className="bg-yellow-50 p-4 rounded-lg shadow">
+            <p className="text-sm text-red-500">
+              To see more functionalities use a computer
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
