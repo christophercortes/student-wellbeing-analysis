@@ -1,14 +1,15 @@
-"use client";
-import { toast } from "sonner";
+'use client';
+import { FormEvent } from 'react';
+import { toast } from 'sonner';
 
 export default function RegisterPage() {
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const data = new FormData(e.target);
+		const data = new FormData(e.currentTarget);
 		const object = Object.fromEntries(data);
 		if (object.password !== object.confirmPassword) {
 			toast.warning(
-				"Confirm password doesnt match, please validate it and try again."
+				'Confirm password doesnt match, please validate it and try again.'
 			);
 			return;
 		}
@@ -33,7 +34,7 @@ export default function RegisterPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Full name:
 					</span>
 				</label>
@@ -49,7 +50,7 @@ export default function RegisterPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Email:
 					</span>
 				</label>
@@ -68,7 +69,7 @@ export default function RegisterPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Phone Number:
 					</span>
 				</label>
@@ -85,7 +86,7 @@ export default function RegisterPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Address:
 					</span>
 				</label>
@@ -104,7 +105,7 @@ export default function RegisterPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Password:
 					</span>
 				</label>
@@ -123,7 +124,7 @@ export default function RegisterPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						ConfirmPassword:
 					</span>
 				</label>
