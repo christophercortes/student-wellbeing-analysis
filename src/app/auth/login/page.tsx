@@ -1,9 +1,13 @@
-"use client";
+'use client';
+
+import { FormEvent } from 'react';
 
 export default function LoginPage() {
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const data = new FormData(e.target);
+
+		const form = e.currentTarget;
+		const data = new FormData(form);
 		const object = Object.fromEntries(data);
 		console.log(object);
 	};
@@ -27,7 +31,7 @@ export default function LoginPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Email:
 					</span>
 				</label>
@@ -47,7 +51,7 @@ export default function LoginPage() {
 						className="absolute top-0 left-0 transform duration-300 peer-focus-within:-translate-y-8
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
-						{" "}
+						{' '}
 						Password:
 					</span>
 				</label>
