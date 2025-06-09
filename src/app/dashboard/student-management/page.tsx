@@ -49,11 +49,9 @@ export default async function Page() {
 					<tr className="border-b border-gray-200">
 						<th className=" table-title">Name</th>
 						<th className="table-title hidden md:table-cell">Birthdate</th>
-						<th className="table-title">Course?</th>
+						<th className="table-title">Course</th>
 						<th className="table-title">Teacher</th>
 						<th className="table-title hidden lg:table-cell">Phone Number</th>
-						{/* <th className="table-title hidden md:table-cell">Parent</th>
-						<th className="table-title hidden lg:table-cell">Parent Email</th> */}
 					</tr>
 				</thead>
 				<tbody>
@@ -75,8 +73,6 @@ export default async function Page() {
 								<td className="table-title py-3">{student.courseName}</td>
 								<td className="table-title py-3">{student.teacherName}</td>
 								<td className="table-title py-3 hidden lg:table-cell">{student.contactInfo}</td>
-								{/* <td className="table-title py-3 hidden md:table-cell">{student.parentName}</td>
-								<td className="table-title py-3 hidden lg:table-cell">{student.parentEmail}</td> */}
 								<td className="table-title py-3">
 									<Link 
 									href={`/dashboard/student-management/student/update/${student._id}`}
@@ -86,7 +82,7 @@ export default async function Page() {
 									</Link>
 								</td>
 								<td className="table-title py-3">
-									<RemoveStudent id={student._id} fullName={student.fullName} />
+									<RemoveStudent id={student._id} fullName={student.fullName} image_id={student.image_id} />
 								</td>
 							</tr>
 						);

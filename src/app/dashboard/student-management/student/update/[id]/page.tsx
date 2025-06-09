@@ -7,7 +7,7 @@ const getStudentById = async (id: string) => {
     try 
     {
         // Connect to the db
-        const response = await fetch(`${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api/students" }/api/students/${id}`, {
+        const response = await fetch(`${ process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/students/${id}`, {
             cache: "no-store", // Don't save the cache into the browser
         });
 
@@ -35,7 +35,7 @@ export default async function EditStudent({ params, }: { params: Promise<{ id: s
     const { student } = await getStudentById(id);
 
     // Split up the data into varibles
-    const { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail } = student;
+    const { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail, age, image_id } = student;
 
     // Return the StudentForm
     return (<EditStudentForm 
@@ -46,6 +46,8 @@ export default async function EditStudent({ params, }: { params: Promise<{ id: s
         teacherName={ teacherName } 
         contactInfo={ contactInfo } 
         parentName={ parentName } 
-        parentEmail={ parentEmail } 
+        parentEmail={ parentEmail }
+        age= { age }
+        image_id= { image_id } 
         />);
 }
