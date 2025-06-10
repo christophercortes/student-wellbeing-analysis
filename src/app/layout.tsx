@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { inter } from "@/components/fonts";
-import Header from "@/components/dashboard/header";
+//import Header from "@/components/dashboard/header";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${inter.className} antialiased`}>
-				<Header />
+				{/* <Header /> */}
 				{children}
 				<Toaster richColors position="top-center" />
 			</body>

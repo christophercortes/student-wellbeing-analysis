@@ -142,10 +142,10 @@ export default function NavLinks() {
         <Link
           href={SignOutLink.href}
           className={clsx(
-            "flex items-center gap-4 px-4 py-2 text-sm rounded-lg transition-colors duration-200",
+            "flex items-center gap-4 py-2 rounded-lg transition-all duration-200",
             pathname === SignOutLink.href
-              ? "bg-red-100 text-grey-700 font-semibold"
-              : "text-gray-600 hover:bg-red-100 hover:text-grey-600"
+              ? "bg-red-100 text-grey-700 font-semibold shadow-sm"
+              : "text-gray-600 hover:bg-red-100 hover:text-gray-900"
           )}
         >
           <SignOutLink.icon className="w-6 h-6" />
