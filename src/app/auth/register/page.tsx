@@ -1,20 +1,94 @@
 'use client';
-import { FormEvent } from 'react';
+
+import { useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+import { FormEvent, useEffect } from 'react';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+
+// export async function getServerSideProps(context) {
+// 	const session = await getServerSession(context.req, context.res, authOptions);
+
+// 	if (!session) {
+// 		return {
+// 			redirect: {
+// 				destination: '/',
+// 				permanent: false,
+// 			},
+// 		};
+// 	}
+
+// 	return {
+// 		props: {
+// 			session,
+// 		},
+// 	};
+// }
 
 export default function RegisterPage() {
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const { status, data } = useSession();
+	const router = useRouter();
+
+	useEffect(() => {
+		if (status === 'authenticated') {
+			router.push('/dashboard');
+		}
+	}, [status, router]);
+
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		const data = new FormData(e.currentTarget);
 		const object = Object.fromEntries(data);
+
 		if (object.password !== object.confirmPassword) {
 			toast.warning(
 				'Confirm password doesnt match, please validate it and try again.'
 			);
 			return;
 		}
-		console.log(object);
+		const { email, password, fullName } = object;
+
+		object.subjectSpecialization = '';
+		const teacherRegistered = await registerTeacher(object);
+
+		if (!teacherRegistered.ok) {
+			const json = await teacherRegistered.json();
+			toast.error(json.message);
+		} else {
+			// If registration is successful, sign in the user
+			const signInResult = await signIn('credentials', {
+				email,
+				password,
+				redirect: false,
+			});
+
+			if (signInResult?.ok) {
+				toast.success('Welcome! ' + fullName);
+				router.push('/dashboard'); // or wherever you want to redirect after successful registration
+			}
+		}
+		console.log('teachers: ', teacherRegistered);
 	};
+
+	const registerTeacher = async (teacher: any) => {
+		return await fetch(
+			`${
+				process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+			}/api/teachers/register`,
+			{
+				cache: 'no-cache',
+				method: 'POST',
+				body: JSON.stringify(teacher),
+			}
+		);
+	};
+
+	// Show loading state while checking session
+	if (status === 'loading') {
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<div className="flex flex-col items-center mt-10">
 			<h2 className="text-2xl font-bold">Register</h2>
@@ -55,14 +129,14 @@ export default function RegisterPage() {
 					</span>
 				</label>
 
-				<label htmlFor="number" className="relative">
+				<label htmlFor="phoneNumber" className="relative">
 					<input
 						placeholder="number"
 						type="tel"
 						pattern="^[+]+[0-9]{11}"
 						title='Follow the format: "Start with + and then 11 numbers"'
-						name="number"
-						id="number"
+						name="phoneNumber"
+						id="phoneNumber"
 						className="border-b focus:valid:border-b-blue-500 focus:invalid:border-b-red-500 outline-0 placeholder:opacity-0 peer w-full "
 					/>
 					<span
@@ -135,6 +209,7 @@ export default function RegisterPage() {
 					Register
 				</button>
 			</form>
+			{status}
 		</div>
 	);
 }

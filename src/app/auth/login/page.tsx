@@ -1,16 +1,36 @@
 'use client';
 
+import { signIn, SignInResponse } from 'next-auth/react';
 import { FormEvent } from 'react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const router = useRouter();
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const form = e.currentTarget;
 		const data = new FormData(form);
-		const object = Object.fromEntries(data);
-		console.log(object);
+		const formObject = Object.fromEntries(data);
+		const { email, password } = formObject;
+		const signInResult = await signIn('credentials', {
+			email,
+			password,
+			redirect: false,
+			callbackUrl: '/dashboard',
+		});
+		authLogic(signInResult);
 	};
+
+	function authLogic(resp: SignInResponse | undefined) {
+		if (resp?.status != 200) {
+			toast.error(resp?.error);
+			return;
+		}
+		toast.success('You are logged in now!');
+		router.push('/dashboard');
+	}
 	return (
 		<div className="flex flex-col items-center mt-10">
 			<h2 className="text-2xl font-bold">Login</h2>
