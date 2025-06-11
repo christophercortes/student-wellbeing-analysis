@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import { FormEvent, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // export async function getServerSideProps(context) {
 // 	const session = await getServerSession(context.req, context.res, authOptions);
@@ -26,7 +27,7 @@ import { useRouter } from 'next/navigation';
 // }
 
 export default function RegisterPage() {
-	const { status, data } = useSession();
+	const { status } = useSession();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -102,6 +103,7 @@ export default function RegisterPage() {
 						type="text"
 						name="fullName"
 						id="fullName"
+						required
 						className="border-b focus:valid:border-b-blue-500 focus:invalid:border-b-red-500 outline-0 placeholder:opacity-0 peer w-full "
 					/>
 					<span
@@ -109,7 +111,7 @@ export default function RegisterPage() {
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
 						{' '}
-						Full name:
+						Full name: <span className="text-red-600">*</span>
 					</span>
 				</label>
 				<label htmlFor="email" className="relative">
@@ -125,7 +127,7 @@ export default function RegisterPage() {
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
 						{' '}
-						Email:
+						Email: <span className="text-red-600">*</span>
 					</span>
 				</label>
 
@@ -144,7 +146,7 @@ export default function RegisterPage() {
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
 						{' '}
-						Phone Number:
+						Phone Number: <span className="text-red-600">*</span>
 					</span>
 				</label>
 
@@ -161,7 +163,7 @@ export default function RegisterPage() {
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
 						{' '}
-						Address:
+						Address: <span className="text-red-600">*</span>
 					</span>
 				</label>
 				<label
@@ -180,7 +182,7 @@ export default function RegisterPage() {
 					 peer-focus-within:text-blue-500 peer-not-placeholder-shown:-translate-y-8 peer-not-placeholder-shown:text-blue-500 peer-not-placeholder-shown:peer-invalid:text-red-500"
 					>
 						{' '}
-						Password:
+						Password: <span className="text-red-600">*</span>
 					</span>
 				</label>
 				<label
@@ -209,7 +211,13 @@ export default function RegisterPage() {
 					Register
 				</button>
 			</form>
-			{status}
+			<Link
+				href={'/auth/login'}
+				className="text-blue-500 mt-3 no-underline md:hover:underline"
+			>
+				{' '}
+				Are you already log in?
+			</Link>
 		</div>
 	);
 }

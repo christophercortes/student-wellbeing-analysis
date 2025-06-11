@@ -1,12 +1,20 @@
 'use client';
 
-import { signIn, SignInResponse } from 'next-auth/react';
-import { FormEvent } from 'react';
+import { signIn, SignInResponse, useSession } from 'next-auth/react';
+import { FormEvent, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginPage() {
+	const { status } = useSession();
 	const router = useRouter();
+
+	useEffect(() => {
+		if (status === 'authenticated') {
+			router.push('/dashboard');
+		}
+	}, [status, router]);
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -82,6 +90,13 @@ export default function LoginPage() {
 					Register
 				</button>
 			</form>
+			<Link
+				href={'/auth/register'}
+				className="text-blue-500 mt-3 no-underline md:hover:underline"
+			>
+				{' '}
+				Go to register page
+			</Link>
 		</div>
 	);
 }
