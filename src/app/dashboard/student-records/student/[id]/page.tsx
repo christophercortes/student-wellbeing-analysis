@@ -85,6 +85,7 @@ export default function StudentDetailPage() {
               </tr>
             </thead>
             <tbody className="bg-white border-b">
+              <tr>{ student.fullName}</tr>
               <SentimentAnalysis />
             </tbody>
           </table>
