@@ -17,13 +17,8 @@ import clsx from "clsx";
 const links = [
   { name: "Dashboard", href: "/dashboard", icon: Squares2X2Icon },
   { name: "Home", href: "/", icon: HomeIcon },
-<<<<<<< HEAD
   { name: "User Profile", href: "/dashboard/user-profile", icon: UserCircleIcon },
   { name: "Email", href: "", icon: EnvelopeIcon },
-=======
-  { name: "User Profile", href: "", icon: UserCircleIcon },
-  { name: "Email", href: "/dashboard/Email", icon: EnvelopeIcon },
->>>>>>> 7cdbacdeae242888e4dcf4a8c88b00521b161bed
 ];
 
 // Student links
