@@ -18,7 +18,7 @@ const links = [
   { name: "Dashboard", href: "/dashboard", icon: Squares2X2Icon },
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "User Profile", href: "", icon: UserCircleIcon },
-  { name: "Email", href: "", icon: EnvelopeIcon },
+  { name: "Email", href: "/dashboard/Email", icon: EnvelopeIcon },
 ];
 
 // Student links
