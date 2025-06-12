@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { inter } from '@/components/fonts';
-import Header from '@/components/dashboard/header';
 import { Toaster } from '@/components/ui/sonner';
 import SessionProvider from '@/components/providers/SessionProvider';
 
@@ -19,7 +18,6 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${inter.className} antialiased`}>
 				<SessionProvider>
-					<Header />
 					{children}
 					<Toaster richColors position="top-center" />
 				</SessionProvider>
