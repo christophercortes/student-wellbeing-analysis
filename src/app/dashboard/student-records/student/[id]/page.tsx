@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { StudentResponse } from "@/global/studentResponse";
 import { SentimentAnalysis } from "@/components/SentimentAnalysis";
+import SendEmail from "@/components/ui/sendEmail";
 
 export default function StudentDetailPage() {
   const params = useParams();
@@ -104,7 +105,15 @@ export default function StudentDetailPage() {
               {/* chart goes here */}
             </tbody>
           </table>
+
+          <h2 className="hidden min-w-full sm:table text-xl font-semibold mt-8">
+            Sent Email Report to Parents
+          </h2>
+          <div>
+              <SendEmail student={ student} />
+          </div>
         </div>
+
         {/* Mobile View */}
         <div className="space-y-4 md:hidden">
           <div className="bg-white p-4 rounded-lg shadow">
