@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 import { AuthOptions } from 'next-auth';
 
 // --- THE FIX IS HERE: REMOVE 'export' ---
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
 	// ------------------------------------
 
 	providers: [
