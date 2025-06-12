@@ -35,6 +35,15 @@ const StudentLink = [
   },
 ];
 
+// Courses Links
+const CourseLink = [
+  {
+    name: "Management",
+    href: "/dashboard/course-management",
+    icon: IdentificationIcon,
+  },
+];
+
 // Sign out link
 const SignOutLink = {
   name: "Sign Out",
@@ -81,6 +90,33 @@ export default function NavLinks() {
         </h2>
         <div className="space-y-2">
           {StudentLink.map(({ name, href, icon: Icon }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={name}
+                href={href}
+                className={clsx(
+                  "flex items-center gap-4 py-2 rounded-lg transition-all duration-200",
+                  isActive
+                    ? "bg-blue-100 text-blue-700 font-semibold shadow-sm"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                )}
+              >
+                <Icon className="w-6 h-6" />
+                <span className="text-base">{name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Course */}
+      <div className="mb-6">
+        <h2 className="text-xs font-semibold text-gray-500 uppercase mb-4 tracking-wider">
+          Course
+        </h2>
+        <div className="space-y-2">
+          {CourseLink.map(({ name, href, icon: Icon }) => {
             const isActive = pathname === href;
             return (
               <Link

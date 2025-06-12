@@ -9,16 +9,18 @@ interface HeaderProps {
   showSidebar: boolean;
 }
 
-export default function Header({onMenuClick, showSidebar}: HeaderProps) {
+export default function Header({ onMenuClick, showSidebar }: HeaderProps) {
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white shadow border-b border-gray-200">
       <div className="hidden md:block">
         <Logo />
       </div>
-      <div className="flex items-center gap-4">
-        <button className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+
+      <div>
+        <button
+          className="md:hidden p-2 text-gray-600 hover:text-gray-900"
           onClick={onMenuClick}
-          aria-label="Toggle menu"
+          aria-label="Toggle Menu"
         >
           {showSidebar ? (
             <XMarkIcon className="w-6 h-6" />

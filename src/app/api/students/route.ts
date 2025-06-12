@@ -16,7 +16,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) 
 {
     // Collect the data from the request and convert to json
-    const { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail } = await request.json();
+    const { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail, age, image_id } = await request.json();
     // Connect to the database
     await connectMonDb();
 
@@ -24,7 +24,7 @@ export async function POST(request: Request)
     try 
     {
         // Try to add the new student to the database
-        await Student.create({ fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail });
+        await Student.create({ fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail, age, image_id });
         // Return the success response if the student was added, 201: Student Created
         return NextResponse.json({ message: "Student Created" }, { status: 201 });
     } catch (error) {

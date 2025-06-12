@@ -34,7 +34,9 @@ export async function PUT(request: Request, { params }: { params: Promise<{id: s
             newTeacherName: teacherName, 
             newContactInfo: contactInfo, 
             newParentName: parentName, 
-            newParentEmail: parentEmail } = await request.json();
+            newParentEmail: parentEmail,
+            newAge: age,
+            newImage_id: image_id } = await request.json();
     // Connect to the db
     await connectMonDb();
 
@@ -44,7 +46,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{id: s
         // Update the student based on the student id
         const updated = await Student.findByIdAndUpdate(
             id, 
-            { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail }
+            { fullName, dateOfBirth, courseName, teacherName, contactInfo, parentName, parentEmail, age, image_id }
         );
         
         // Return a message based on success or not
@@ -117,6 +119,38 @@ export async function GET(_request: Request, { params }: { params: Promise<{id: 
         } else {
             // The student was found in the db, 200: student
             return NextResponse.json({ student }, { status: 200 });
+        }
+    } catch (error) {
+        // Display the error to the console
+        console.error("An Error Occured: ", error);
+        // Return error message, 500: Server Error
+        return NextResponse.json({ message: "Server Error" }, { status: 500 });
+    }
+}
+
+// Create the PATCH function to PATCH the image_id in the Student
+export async function PATCH(request: Request, { params }: { params: Promise<{id: string}> })
+{
+    try
+    {
+        // obtain the id from params and the data from request
+        const { id } = await params;
+
+        const { image_id: newImage_id } = await request.json();
+
+        // Connect to the db
+        await connectMonDb();
+
+        // Preform the PATCH
+        const patchedStudent = await Student.findByIdAndUpdate(id, {image_id: newImage_id}, {new: true}); // New keeps the file safe
+
+        if (!patchedStudent)
+        {
+            // Return the not found error, 404: Student Not Found
+            return NextResponse.json({ message: "Student Not Found" }, { status: 404 });
+        } else {
+            // Return the success message, 200: Student Updated
+            return NextResponse.json({ message: "Student Updated" }, { status: 200 });
         }
     } catch (error) {
         // Display the error to the console
