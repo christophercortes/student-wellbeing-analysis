@@ -15,6 +15,7 @@ export default function Header({ onMenuClick, showSidebar }: HeaderProps) {
       <div className="hidden md:block">
         <Logo />
       </div>
+
       <div>
         <button
           className="md:hidden p-2 text-gray-600 hover:text-gray-900"
@@ -24,7 +25,7 @@ export default function Header({ onMenuClick, showSidebar }: HeaderProps) {
           {showSidebar ? (
             <XMarkIcon className="w-6 h-6" />
           ) : (
-            <Bars3Icon className="w-6 h-6" />
+              <Bars3Icon className="w-6 h-6" />
           )}
         </button>
       </div>
@@ -33,12 +34,12 @@ export default function Header({ onMenuClick, showSidebar }: HeaderProps) {
           src="/"
           width={48}
           height={48}
-          className="rounded-full object-cover"
+          className="rounded-full object-cover border border-gray-300"
           alt="user profile"
         />
-        <div className="text-sm text-gray-700 mr-10">
+        <div className="text-sm leading-tight">
           <p className="text-xs text-gray-500">Welcome back,</p>
-          <h2 className="font-medium">User Name</h2>
+          <h2 className="font-medium text-gray-800">User Name</h2>
         </div>
       </div>
     </header>
