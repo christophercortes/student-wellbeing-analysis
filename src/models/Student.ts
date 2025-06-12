@@ -8,6 +8,8 @@ export interface IStudent extends Document {
   contactInfo: string;
   parentName: string;
   parentEmail: string;
+  age: number;
+  image_id: string; // This id hooks to the image object
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -39,6 +41,16 @@ const studentSchema = new Schema<IStudent>(
     },
     parentEmail: {
       type: String
+    },
+    age: {
+      type: Number,
+      required: [true, "Age is required"],
+      default: 0,
+    },
+    image_id: {
+      type: String,
+      required: false,
+      default: ""
     },
   },
   {
