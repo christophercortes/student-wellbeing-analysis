@@ -68,7 +68,11 @@ export default async function UserProfile()
                 </div>
             );
         } else {
-            imageContent = (<img src={userData.profilePicture} />);
+            imageContent = (
+            <div className="mx-auto">
+                <img src={userData.profilePicture} />
+            </div>
+        );
         }
 
         return (<>

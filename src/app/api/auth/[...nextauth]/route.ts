@@ -44,7 +44,6 @@ const authOptions: AuthOptions = {
 					id: teacher._id.toString(),
 					name: teacher.fullName,
 					email: teacher.email,
-					image: teacher.profilePicture,
 				};
 			},
 		}),
