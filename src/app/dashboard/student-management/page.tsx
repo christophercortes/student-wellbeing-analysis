@@ -92,7 +92,7 @@ export default async function Page() {
 			{/* Mobile View */}
 			<div className="space-y-4 md:hidden mt-5">
 				{students.map((student) => (
-				<div key={student.id} className="bg-white rounded-lg shadow p-4 border border-gray-200">
+				<div key={student._id} className="bg-white rounded-lg shadow p-4 border border-gray-200">
 					<p>
 						<Link
 							href={`/dashboard/student-management/student/${student._id}`}
