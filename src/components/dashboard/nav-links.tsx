@@ -6,7 +6,6 @@ import {
   IdentificationIcon,
   FolderPlusIcon,
   Squares2X2Icon,
-  EnvelopeIcon,
   HomeIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -17,8 +16,7 @@ import clsx from "clsx";
 const links = [
   { name: "Dashboard", href: "/dashboard", icon: Squares2X2Icon },
   { name: "Home", href: "/", icon: HomeIcon },
-  { name: "User Profile", href: "/dashboard/user-profile", icon: UserCircleIcon },
-  { name: "Email", href: "", icon: EnvelopeIcon },
+  { name: "User Profile", href: "", icon: UserCircleIcon },
 ];
 
 // Student links

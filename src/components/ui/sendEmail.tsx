@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
 import { StudentResponse } from "@/global/studentResponse";
 
 interface Props {
@@ -15,25 +14,34 @@ export default function SendEmail({ student }: Props) {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
 
-    const serviceId = process.env.NEXT_PUBLIC_SERVICE_ID || "";
-    const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID || "";
-    const userId = process.env.NEXT_PUBLIC_USER_ID || "";
-
-    if (!serviceId || !templateId || !userId) {
-      setStatus("Error: Emailjs sericeId, templateId, or userId is missing.");
-      return;
-    }
+    const payload = {
+      studentName: formData.get("studentName"),
+      parentName: formData.get("parentName"),
+      parentEmail: formData.get("parentEmail"),
+      studentReport: formData.get("studentReport"),
+    };
 
     try {
-      await emailjs.sendForm(serviceId, templateId, form);
-      setStatus("Message sent successfully");
-      form.reset();
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        setStatus("Message sent successfully");
+        form.reset();
+      } else {
+        setStatus(`Error: ${result.error || "Failed to send email."}`);
+      }
     } catch (error) {
-      console.error("Email error:", error);
-      setStatus(
-        "Error: We can't send your email due to internal issues. Try later."
-      );
+      console.error("Error sending email:", error);
+      setStatus("Error: Unable to send email. Try later.")
     }
   };
 
@@ -48,15 +56,15 @@ export default function SendEmail({ student }: Props) {
 
       <div className="space-y-4">
         <label
-          htmlFor="StudentName"
+          htmlFor="studentName"
           className="block text-sm font-medium text-gray-700"
         >
           Student
         </label>
         <input
           type="text"
-          id="name"
-          name="name"
+          id="studentName"
+          name="studentName"
           required
           className="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={student.fullName}
@@ -65,15 +73,15 @@ export default function SendEmail({ student }: Props) {
 
       <div className="space-y-4">
         <label
-          htmlFor="ParentName"
+          htmlFor="parentName"
           className="block text-sm font-medium text-gray-700"
         >
           Parent
         </label>
         <input
           type="text"
-          id="ParentName"
-          name="name"
+          id="parentName"
+          name="parentName"
           required
           aria-required="true"
           className="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -83,15 +91,15 @@ export default function SendEmail({ student }: Props) {
 
       <div className="space-y-4">
         <label
-          htmlFor="ParentEmail"
+          htmlFor="parentEmail"
           className="block text-sm font-medium text-gray-700"
         >
           Email
         </label>
         <input
           type="text"
-          id="ParentEmail"
-          name="email"
+          id="parentEmail"
+          name="parentEmail"
           required
           aria-required="true"
           className="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -101,13 +109,13 @@ export default function SendEmail({ student }: Props) {
 
       <div className="space-y-4">
         <label
-          htmlFor="StudentReport"
+          htmlFor="studentReport"
           className="block text-sm font-medium text-gray-700"
         >
           Report
         </label>
         <textarea
-          name="StudentReport"
+          name="studentReport"
           required
           aria-required="true"
           className="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
