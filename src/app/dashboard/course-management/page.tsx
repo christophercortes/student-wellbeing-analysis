@@ -87,7 +87,7 @@ export default async function Page()
 				</button>
 			</div>
 			<h2 className="mt-8 text-lg font-semibold text-center">Management</h2>
-			<table className="mt-9 w-3/5 mx-auto table-auto border-collapse text-sm">
+			<table className="hidden mt-9 w-3/5 mx-auto table-auto border-collapse text-sm md:table">
 				<thead>
 					<tr className="border-b border-gray-200">
 						<th className=" table-title">Name</th>
@@ -128,6 +128,44 @@ export default async function Page()
 					})}
 				</tbody>
 			</table>
+            {/* Mobile View */}
+			<div className="space-y-4 md:hidden mt-5">
+				{courses.map((course) => (
+				<div key={course._id} className="bg-white rounded-lg shadow p-4 border border-gray-200">
+					<p>
+						<Link
+							href={`/dashboard/course-management/course/${course._id}`}
+							className="font-semibold text-blue-400 hover:bg-gray-100"
+						>
+						{course.courseName}
+						</Link>
+					</p>
+					<p className="text-sm text-gray-600">
+					<span className="font-medium font-semibold">Code: </span>
+					{course.courseCode}
+					</p>
+					<p className="text-sm text-gray-600">
+					<span className="font-medium font-semibold">Duration: </span>
+					{course.durationInWeeks}
+					</p>
+                    <p className={activeColor(course.isActive)}>
+                    <span className="font-medium font-semibold text-gray-600">Is Active: </span>
+                        {isActiveCourse(course.isActive)}
+                    </p>
+					<p>
+						<Link 
+							href={`/dashboard/course-management/course/update/${course._id}`}
+							className="text-blue-400 hover:text-blue-200"
+						>
+							Edit
+						</Link>
+					</p>
+					<p>
+						<RemoveCourse id={course._id} courseName={course.courseName} />
+					</p>
+				</div>
+				))}
+      		</div>
         </>
     );
 }
