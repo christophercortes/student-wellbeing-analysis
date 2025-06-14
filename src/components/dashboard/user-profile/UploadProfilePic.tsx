@@ -61,10 +61,10 @@ export default function UploadForm ({ id, }: { id: string })
                     throw new Error("Failed to update student.");
                 }
 
-                // Refresh the router to show the update with out having the user refresh the browser
+                // Refresh the router to show the update with out having the user refresh the server side
                 router.refresh();
-                // Push back to the student managment page
-                router.push('/dashboard/user-profile');
+                // Attempt to refresh the client then push to the profile page, this allows the page to refresh
+                window.location.href = '/dashboard/user-profile';
             } catch (error) {
                 // Log the error
                 console.log(error);
