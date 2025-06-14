@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 	try {
 		await connectDB();
 
-		const { fullName, email, password, phoneNumber } = await req.json();
+		const { fullName, email, password, phoneNumber, address } = await req.json();
 
 		const teacherId = crypto.randomUUID();
 		const subjectSpecialization = 'none';
@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
 			!email ||
 			!password ||
 			!subjectSpecialization ||
-			!teacherId
+			!teacherId ||
+			!address
 		) {
 			return NextResponse.json(
 				{ message: 'All required fields must be provided.' },
@@ -43,6 +44,7 @@ export async function POST(req: NextRequest) {
 			phoneNumber,
 			subjectSpecialization,
 			teacherId,
+			address,
 		});
 
 		return NextResponse.json(
