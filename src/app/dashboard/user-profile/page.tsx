@@ -1,6 +1,6 @@
 // Imports
-import { getServerSession } from "next-auth/next"; // Obtain the session to use in the code
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth"; // Obtain the session to use in the code
+import authOptions  from "@/lib/auth/authOptions";
 import Link from "next/link";
 
 // Obtain the teacher
