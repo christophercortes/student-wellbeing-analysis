@@ -6,7 +6,6 @@ import {
   IdentificationIcon,
   FolderPlusIcon,
   Squares2X2Icon,
-  EnvelopeIcon,
   HomeIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -18,7 +17,6 @@ const links = [
   { name: "Dashboard", href: "/dashboard", icon: Squares2X2Icon },
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "User Profile", href: "", icon: UserCircleIcon },
-  { name: "Email", href: "/dashboard/Email", icon: EnvelopeIcon },
 ];
 
 // Student links
