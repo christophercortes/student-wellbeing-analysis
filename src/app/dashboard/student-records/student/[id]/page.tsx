@@ -45,14 +45,16 @@ export default function StudentDetailPage() {
             <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
               <tr className="w-full border-b py-3 text-sm">
                 <th className="px-4 py-5 sm:pl-6">Name</th>
-                <th className="px-3 py-5">Birth date</th>
+                <th className="px-3 py-5">Birthdate</th>
                 <th className="px-3 py-5">Course</th>
                 <th className="px-3 py-5">Teacher</th>
               </tr>
             </thead>
             <tbody className="bg-white text-sm border-b">
               <td className="px-4 py-3 sm:pl-6">{`${student.fullName}`}</td>
-              <td className="px-4 py-3">{`${student.dateOfBirth}`}</td>
+              <td className="px-4 py-3">{`${new Date(
+                student.dateOfBirth
+              ).toLocaleDateString()}`}</td>
               <td className="px-4 py-3">{`${student.courseName}`}</td>
               <td className="px-4 py-3">{student.teacherName}</td>
             </tbody>
@@ -92,26 +94,18 @@ export default function StudentDetailPage() {
           </table>
 
           <h2 className="hidden min-w-full sm:table text-xl font-semibold mt-8">
-            Student Report
+            Send Report
           </h2>
           <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-semibold bg-gray-100">
               <tr className="w-full border-b py-3 text-sm">
-                <th className="px-4 py-3">Bar Chart Report</th>
+                <th className="px-4 py-5 sm:pl-6">Email Report</th>
               </tr>
             </thead>
-            <tbody className="bg-white text-sm border-b">
-              <td className="px-4 py-2"></td>
-              {/* chart goes here */}
-            </tbody>
+            <div className="bg-white border-b">
+              <SendEmail student={student} />
+            </div>
           </table>
-
-          <h2 className="hidden min-w-full sm:table text-xl font-semibold mt-8">
-            Sent Email Report to Parents
-          </h2>
-          <div>
-              <SendEmail student={ student} />
-          </div>
         </div>
 
         {/* Mobile View */}

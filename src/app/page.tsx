@@ -13,8 +13,8 @@ export default function Page() {
         {/* Header Section */}
         <header className="absolute top-6 left-6 flex w-full items-center text-xl font-bold tracking-wide">
           <h1>Welcome</h1>
-          <Link href="/dashboard" className="ml-auto mr-10">
-            <span>Log in</span>
+          <Link href="/auth/login" className="ml-auto mr-10">
+            <button className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Log in</button>
           </Link>
         </header>
 

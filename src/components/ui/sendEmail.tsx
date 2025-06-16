@@ -21,13 +21,14 @@ export default function SendEmail({ student }: Props) {
       parentName: formData.get("parentName"),
       parentEmail: formData.get("parentEmail"),
       studentReport: formData.get("studentReport"),
+      teacherName: formData.get("teacherName"),
     };
 
     try {
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
@@ -41,7 +42,7 @@ export default function SendEmail({ student }: Props) {
       }
     } catch (error) {
       console.error("Error sending email:", error);
-      setStatus("Error: Unable to send email. Try later.")
+      setStatus("Error: Unable to send email. Try later.");
     }
   };
 
@@ -51,8 +52,23 @@ export default function SendEmail({ student }: Props) {
       className="hidden md:block max-w-2xl mx-auto px-6 py-8 bg-white shadow-xl rounded-xl space-y-6"
     >
       <h2 className="text-2xl font-semibold text-center text-gray-800">
-        Send Student Report
+        {student.teacherName}&#39;s Student Report
       </h2>
+
+      <div className="space-y-4">
+        <label
+          htmlFor="teachertName"
+          className="block text-sm font-medium text-gray-700"
+        ></label>
+        <input
+          type="hidden"
+          id="teacherName"
+          name="teacherName"
+          required
+          className="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={student.teacherName}
+        ></input>
+      </div>
 
       <div className="space-y-4">
         <label

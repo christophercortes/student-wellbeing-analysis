@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
-    const { studentName, parentName, parentEmail, studentReport } = await req.json();
-    console.log({ studentName, parentEmail, parentName, studentReport });
+    const { studentName, parentName, parentEmail, studentReport, teacherName } = await req.json();
+    console.log({ studentName, parentEmail, parentName, studentReport, teacherName });
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -15,13 +15,12 @@ export async function POST(req: Request) {
     const mailOptions = {
         from: process.env.Email_User,
         to: parentEmail,
-        subject: `${studentName} Sentiment Report`,
-        text: `Dear ${parentName},
-
-        My role as a teacher is to care for ${studentName}'s mental health. I submit the
-        written analysis report: ===== ${studentReport} =====
+        subject: `${studentName}'s Sentiment Report`,
+        html: `<p><strong>Dear ${parentName},</strong></p>
+        ${studentReport}
         
-        Sincerely,`,
+        <p>Sincerely,</p>
+        <p>${teacherName}</>`,
     };
 
     try {
