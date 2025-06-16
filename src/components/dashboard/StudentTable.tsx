@@ -56,7 +56,7 @@ export default function StudentTable() {
               }
             >
               <td className="px-4 py-3 sm:lp-6">{student.fullName}</td>
-              <td className="px-4 py-3">-</td>
+              <td className="px-4 py-3">{ student.age}</td>
               <td className="px-4 py-3">{student.teacherName}</td>
               <td className="px-4 py-3">{student.courseName}</td>
             </tr>
