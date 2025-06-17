@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, LegendProps, XAxis, YAxis } from "recharts"
 import {
   ChartContainer,
   ChartTooltip,
@@ -94,7 +94,7 @@ export default function DashboardPage() {
                     cursor={false}
                     content={<ChartTooltipContent />}
                   />
-                  <ChartLegend content={ChartLegendContent} />
+                  <ChartLegend content={ChartLegendContent as unknown as LegendProps["content"]} />
                   {/* ===================== */}
                   <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
                   <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
