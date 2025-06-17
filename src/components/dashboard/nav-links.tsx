@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { signOut } from "next-auth/react";
 
 // Main navigation links
 const links = [
@@ -137,18 +138,18 @@ export default function NavLinks() {
 
       {/* Sign Out */}
       <div className="mt-auto border-t pt-4">
-        <Link
-          href={SignOutLink.href}
+        <button
+          onClick={() => signOut({ callbackUrl: '/' })}
           className={clsx(
             "flex items-center gap-4 py-2 rounded-lg transition-all duration-200",
             pathname === SignOutLink.href
-              ? "bg-red-100 text-grey-700 font-semibold shadow-sm"
-              : "text-gray-600 hover:bg-red-100 hover:text-gray-900"
+              ? "bg-red-100 text-grey-700 font-semibold shadow-sm pr-4"
+              : "text-gray-600 hover:bg-red-100 hover:text-gray-900 pr-4"
           )}
         >
           <SignOutLink.icon className="w-6 h-6" />
           <span>{SignOutLink.name}</span>
-        </Link>
+        </button>
       </div>
     </div>
   );
