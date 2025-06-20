@@ -2,6 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
 	/* config options here */
+
+	experimental: {
+		reactCompiler: true,
+	},
+	//reactStrictMode: false,
+	devIndicators: {
+		position: "top-left",
+	},
+
 	webpack: (config) => {
 		// See https://webpack.js.org/configuration/resolve/#resolvealias
 		config.resolve.alias = {
