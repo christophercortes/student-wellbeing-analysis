@@ -2,28 +2,30 @@
 import { CourseResponse } from "@/global/courseResponse";
 import Link from "next/link";
 import RemoveCourse from "@/components/dashboard/course-management/RemoveCourse";
-
+import { dataService } from "@/lib/apiService";
 export const dynamic = "force-dynamic"; // Added this here to stop an error from breaking the page at build
 
 // Obtain the Courses from the API
 async function getCourses() {
 	// Put a try here for safety
 	try {
-		const response = await fetch(
-			`${
-				process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
-			}/api/courses`,
-			{ cache: "no-store" }
-		);
+		const response = await dataService.get<CourseResponse[]>("/api/courses", {
+			cache: "no-store",
+		});
+		// const response = await fetch(
+		// 	`${
+		// 		process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+		// 	}/api/courses`,
+		// 	{ cache: "no-store" }
+		// );
 
-		if (!response.ok) {
-			// Throw the error
-			throw new Error("Error fetching courses");
-		}
+		// if (!response.ok) {
+		// 	// Throw the error
+		// 	throw new Error("Error fetching courses");
+		// }
 
 		// If everything is ok return the data
-		const data = await response.json();
-		return (data.courses as CourseResponse[]) || [];
+		return response || [];
 	} catch (error) {
 		// Display the error to console
 		console.error(error);
