@@ -1,17 +1,17 @@
-import { StudentResponse } from "@/global/studentResponse";
-import Link from "next/link";
-import RemoveStudent from "@/components/dashboard/student-management/RemoveStudent";
+import { StudentResponse } from '@/global/studentResponse';
+import Link from 'next/link';
+import RemoveStudent from '@/components/dashboard/student-management/RemoveStudent';
 
 export default async function Page() {
 	async function getStudents() {
 		const response = await fetch(
 			`${
-				process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+				process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 			}/api/students`,
-			{ cache: "no-store" }
+			{ cache: 'force-cache' }
 		);
 		if (!response.ok) {
-			console.error(" Error fetching students");
+			console.error(' Error fetching students');
 			return [];
 		}
 		const data = await response.json();
@@ -22,23 +22,21 @@ export default async function Page() {
 		// Workable date
 		const date = new Date(oldDate);
 		// Convert the date object
-		const year = (date.getFullYear());
-		const day = (date.getDate() + 1);
-		const month = (date.getMonth() + 1);
+		const year = date.getFullYear();
+		const day = date.getDate() + 1;
+		const month = date.getMonth() + 1;
 
 		const dateString = `${month}/${day}/${year}`;
 
-		return (dateString)
-	}
+		return dateString;
+	};
 
 	const students = await getStudents();
 	return (
 		<>
 			<div className="flex m-5">
 				<button className="bg-blue-300 shrink text-sm text-gray-700 py-3 px-6 border px-8 py-2 hover:bg-blue-400 hover:text-white">
-					<Link
-					href={"/dashboard/student-management/student/create"}
-					>
+					<Link href={'/dashboard/student-management/student/create'}>
 						Create Student
 					</Link>
 				</button>
@@ -58,11 +56,10 @@ export default async function Page() {
 					{students.map((student) => {
 						return (
 							<tr className="border-b border-gray-200" key={student._id}>
-								
 								<td className="table-title py-3">
 									<Link
-									href={`/dashboard/student-management/student/${student._id}`}
-									className="hover:bg-gray-100"
+										href={`/dashboard/student-management/student/${student._id}`}
+										className="hover:bg-gray-100"
 									>
 										{student.fullName}
 									</Link>
@@ -72,17 +69,23 @@ export default async function Page() {
 								</td>
 								<td className="table-title py-3">{student.courseName}</td>
 								<td className="table-title py-3">{student.teacherName}</td>
-								<td className="table-title py-3 hidden lg:table-cell">{student.contactInfo}</td>
+								<td className="table-title py-3 hidden lg:table-cell">
+									{student.contactInfo}
+								</td>
 								<td className="table-title py-3">
-									<Link 
-									href={`/dashboard/student-management/student/update/${student._id}`}
-									className="text-blue-400 hover:text-blue-200"
+									<Link
+										href={`/dashboard/student-management/student/update/${student._id}`}
+										className="text-blue-400 hover:text-blue-200"
 									>
 										Edit
 									</Link>
 								</td>
 								<td className="table-title py-3">
-									<RemoveStudent id={student._id} fullName={student.fullName} image_id={student.image_id} />
+									<RemoveStudent
+										id={student._id}
+										fullName={student.fullName}
+										image_id={student.image_id}
+									/>
 								</td>
 							</tr>
 						);
@@ -92,37 +95,44 @@ export default async function Page() {
 			{/* Mobile View */}
 			<div className="space-y-4 md:hidden mt-5">
 				{students.map((student) => (
-				<div key={student._id} className="bg-white rounded-lg shadow p-4 border border-gray-200">
-					<p>
-						<Link
-							href={`/dashboard/student-management/student/${student._id}`}
-							className="font-semibold text-blue-400 hover:bg-gray-100"
-						>
-						{student.fullName}
-						</Link>
-					</p>
-					<p className="text-sm text-gray-600">
-					<span className="font-medium font-semibold">Teacher: </span>
-					{student.teacherName}
-					</p>
-					<p className="text-sm text-gray-600">
-					<span className="font-medium font-semibold">Course: </span>
-					{student.courseName}
-					</p>
-					<p>
-						<Link 
-							href={`/dashboard/student-management/student/update/${student._id}`}
-							className="text-blue-400 hover:text-blue-200"
-						>
-							Edit
-						</Link>
-					</p>
-					<p>
-						<RemoveStudent id={student._id} fullName={student.fullName} image_id={student.image_id} />
-					</p>
-				</div>
+					<div
+						key={student._id}
+						className="bg-white rounded-lg shadow p-4 border border-gray-200"
+					>
+						<p>
+							<Link
+								href={`/dashboard/student-management/student/${student._id}`}
+								className="font-semibold text-blue-400 hover:bg-gray-100"
+							>
+								{student.fullName}
+							</Link>
+						</p>
+						<p className="text-sm text-gray-600">
+							<span className="font-medium font-semibold">Teacher: </span>
+							{student.teacherName}
+						</p>
+						<p className="text-sm text-gray-600">
+							<span className="font-medium font-semibold">Course: </span>
+							{student.courseName}
+						</p>
+						<p>
+							<Link
+								href={`/dashboard/student-management/student/update/${student._id}`}
+								className="text-blue-400 hover:text-blue-200"
+							>
+								Edit
+							</Link>
+						</p>
+						<p>
+							<RemoveStudent
+								id={student._id}
+								fullName={student.fullName}
+								image_id={student.image_id}
+							/>
+						</p>
+					</div>
 				))}
-      		</div>
+			</div>
 		</>
 	);
 }
